@@ -65,5 +65,4 @@ api
 .\#*
 .vscode
 
-dist
 !_*/dist/
