@@ -26,9 +26,6 @@ export default ({ locale, makeSvgIcon }) => `
                 <label> ${locale.localize('Underline')} </label>
             </div>
         </li>
-        <li class="tui-image-editor-partition">
-            <div></div>
-        </li>
         <li class="tie-text-align-button">
             <div class="tui-image-editor-button left">
                 <div>
@@ -49,14 +46,8 @@ export default ({ locale, makeSvgIcon }) => `
                 <label> ${locale.localize('Right')} </label>
             </div>
         </li>
-        <li class="tui-image-editor-partition">
-            <div></div>
-        </li>
         <li>
             <div class="tie-text-color" title="${locale.localize('Color')}"></div>
-        </li>
-        <li class="tui-image-editor-partition only-left-right">
-            <div></div>
         </li>
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">
             <label class="range">${locale.localize('Text size')}</label>

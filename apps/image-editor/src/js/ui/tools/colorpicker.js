@@ -241,8 +241,8 @@ class Colorpicker {
 
     // controlStyle.top = `${top}px`;
     // controlStyle.left = `-${left}px`;
-    controlStyle.bottom = `450px`;
-    controlStyle.right = `100px`;
+    controlStyle.bottom = `200px`;
+    controlStyle.right = `20px`;
   }
 }
 
