@@ -2,13 +2,7 @@ import CustomEvents from 'tui-code-snippet/customEvents/customEvents';
 import extend from 'tui-code-snippet/object/extend';
 import forEach from 'tui-code-snippet/collection/forEach';
 import { getSelector, assignmentForDestroy, cls, getHistoryTitle, isSilentCommand } from '@/util';
-import {
-  ZOOM_HELP_MENUS,
-  COMMAND_HELP_MENUS,
-  DELETE_HELP_MENUS,
-  eventNames,
-  HELP_MENUS,
-} from '@/consts';
+import { eventNames, HELP_MENUS } from '@/consts';
 import mainContainer from '@/ui/template/mainContainer';
 import controls from '@/ui/template/controls';
 
@@ -290,7 +284,7 @@ class Ui {
    * @private
    */
   _makeSubMenu() {
-    forEach(this.options.menu, (menuName) => {
+    forEach([...HELP_MENUS, ...this.options.menu], (menuName) => {
       const SubComponentClass =
         SUB_UI_COMPONENT[menuName.replace(/^[a-z]/, ($0) => $0.toUpperCase())];
 
@@ -386,27 +380,6 @@ class Ui {
       locale: this._locale,
       makeSvgIcon: this.theme.makeMenSvgIconSet.bind(this.theme),
     });
-
-    this._activateZoomMenus();
-  }
-
-  /**
-   * Activate help menus for zoom.
-   * @private
-   */
-  _activateZoomMenus() {
-    forEach(ZOOM_HELP_MENUS, (menu) => {
-      this.changeHelpButtonEnabled(menu, true);
-    });
-  }
-
-  /**
-   * make array for help menu output, including partitions.
-   * @returns {Array}
-   * @private
-   */
-  _makeHelpMenuWithPartition() {
-    return [...ZOOM_HELP_MENUS, '', ...COMMAND_HELP_MENUS, '', ...DELETE_HELP_MENUS];
   }
 
   /**
@@ -414,9 +387,7 @@ class Ui {
    * @private
    */
   _addHelpMenus() {
-    const helpMenuWithPartition = this._makeHelpMenuWithPartition();
-
-    forEach(helpMenuWithPartition, (menuName) => {
+    forEach(HELP_MENUS, (menuName) => {
       if (!menuName) {
         this._makeMenuPartitionElement();
       } else {

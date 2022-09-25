@@ -1,28 +1,22 @@
 import { keyMirror } from '@/util';
 
 /**
- * Help features for zoom
- * @type {Array.<string>}
- */
-export const ZOOM_HELP_MENUS = ['zoomIn', 'zoomOut', 'hand'];
-
-/**
  * Help features for command
  * @type {Array.<string>}
  */
-export const COMMAND_HELP_MENUS = ['history', 'undo', 'redo', 'reset'];
+export const COMMAND_HELP_MENUS = ['undo', 'redo'];
 
 /**
  * Help features for delete
  * @type {Array.<string>}
  */
-export const DELETE_HELP_MENUS = ['delete', 'deleteAll'];
+export const DELETE_HELP_MENUS = ['delete'];
 
 /**
  * Editor help features
  * @type {Array.<string>}
  */
-export const HELP_MENUS = [...ZOOM_HELP_MENUS, ...COMMAND_HELP_MENUS, ...DELETE_HELP_MENUS];
+export const HELP_MENUS = [...COMMAND_HELP_MENUS, ...DELETE_HELP_MENUS];
 
 /**
  * Fill type for shape

@@ -40932,29 +40932,23 @@ var _context;
 
 
 /**
- * Help features for zoom
- * @type {Array.<string>}
- */
-
-var ZOOM_HELP_MENUS = ['zoomIn', 'zoomOut', 'hand'];
-/**
  * Help features for command
  * @type {Array.<string>}
  */
 
-var COMMAND_HELP_MENUS = ['history', 'undo', 'redo', 'reset'];
+var COMMAND_HELP_MENUS = ['undo', 'redo'];
 /**
  * Help features for delete
  * @type {Array.<string>}
  */
 
-var DELETE_HELP_MENUS = ['delete', 'deleteAll'];
+var DELETE_HELP_MENUS = ['delete'];
 /**
  * Editor help features
  * @type {Array.<string>}
  */
 
-var HELP_MENUS = concat_default()(_context = []).call(_context, ZOOM_HELP_MENUS, COMMAND_HELP_MENUS, DELETE_HELP_MENUS);
+var HELP_MENUS = concat_default()(_context = []).call(_context, COMMAND_HELP_MENUS, DELETE_HELP_MENUS);
 /**
  * Fill type for shape
  * @type {Object.<string, string>}
@@ -47690,10 +47684,11 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_makeSubMenu",
     value: function _makeSubMenu() {
-      var _this = this;
+      var _context,
+          _this = this;
 
-      forEach_default()(this.options.menu, function (menuName) {
-        var _context;
+      forEach_default()(concat_default()(_context = []).call(_context, _toConsumableArray(HELP_MENUS), _toConsumableArray(this.options.menu)), function (menuName) {
+        var _context2;
 
         var SubComponentClass = SUB_UI_COMPONENT[menuName.replace(/^[a-z]/, function ($0) {
           return $0.toUpperCase();
@@ -47706,7 +47701,7 @@ var Ui = /*#__PURE__*/function () {
 
         _this[menuName] = new SubComponentClass(_this._subMenuElement, {
           locale: _this._locale,
-          makeSvgIcon: bind_default()(_context = _this.theme.makeMenSvgIconSet).call(_context, _this.theme),
+          makeSvgIcon: bind_default()(_context2 = _this.theme.makeMenSvgIconSet).call(_context2, _this.theme),
           menuBarPosition: _this.options.menuBarPosition,
           usageStatistics: _this.options.usageStatistics
         });
@@ -47720,11 +47715,11 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_attachHistoryEvent",
     value: function _attachHistoryEvent() {
-      var _context2, _context3, _context4;
+      var _context3, _context4, _context5;
 
-      this.on(eventNames.EXECUTE_COMMAND, bind_default()(_context2 = this._addHistory).call(_context2, this));
-      this.on(eventNames.AFTER_UNDO, bind_default()(_context3 = this._selectPrevHistory).call(_context3, this));
-      this.on(eventNames.AFTER_REDO, bind_default()(_context4 = this._selectNextHistory).call(_context4, this));
+      this.on(eventNames.EXECUTE_COMMAND, bind_default()(_context3 = this._addHistory).call(_context3, this));
+      this.on(eventNames.AFTER_UNDO, bind_default()(_context4 = this._selectPrevHistory).call(_context4, this));
+      this.on(eventNames.AFTER_REDO, bind_default()(_context5 = this._selectNextHistory).call(_context5, this));
     }
     /**
      * Attach zoom event
@@ -47754,7 +47749,7 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_makeUiElement",
     value: function _makeUiElement(element) {
-      var _context5;
+      var _context6;
 
       var selectedElement;
 
@@ -47800,37 +47795,8 @@ var Ui = /*#__PURE__*/function () {
 
       this._historyMenu = new ui_history(this._buttonElements[HISTORY_MENU], {
         locale: this._locale,
-        makeSvgIcon: bind_default()(_context5 = this.theme.makeMenSvgIconSet).call(_context5, this.theme)
+        makeSvgIcon: bind_default()(_context6 = this.theme.makeMenSvgIconSet).call(_context6, this.theme)
       });
-
-      this._activateZoomMenus();
-    }
-    /**
-     * Activate help menus for zoom.
-     * @private
-     */
-
-  }, {
-    key: "_activateZoomMenus",
-    value: function _activateZoomMenus() {
-      var _this3 = this;
-
-      forEach_default()(ZOOM_HELP_MENUS, function (menu) {
-        _this3.changeHelpButtonEnabled(menu, true);
-      });
-    }
-    /**
-     * make array for help menu output, including partitions.
-     * @returns {Array}
-     * @private
-     */
-
-  }, {
-    key: "_makeHelpMenuWithPartition",
-    value: function _makeHelpMenuWithPartition() {
-      var _context6;
-
-      return concat_default()(_context6 = []).call(_context6, _toConsumableArray(ZOOM_HELP_MENUS), [''], _toConsumableArray(COMMAND_HELP_MENUS), [''], _toConsumableArray(DELETE_HELP_MENUS));
     }
     /**
      * Add help menu
@@ -47840,17 +47806,15 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addHelpMenus",
     value: function _addHelpMenus() {
-      var _this4 = this;
+      var _this3 = this;
 
-      var helpMenuWithPartition = this._makeHelpMenuWithPartition();
-
-      forEach_default()(helpMenuWithPartition, function (menuName) {
+      forEach_default()(HELP_MENUS, function (menuName) {
         if (!menuName) {
-          _this4._makeMenuPartitionElement();
+          _this3._makeMenuPartitionElement();
         } else {
-          _this4._makeMenuElement(menuName, ['normal', 'disabled', 'hover'], 'help');
+          _this3._makeMenuElement(menuName, ['normal', 'disabled', 'hover'], 'help');
 
-          _this4._buttonElements[menuName] = _this4._helpMenuBarElement.querySelector(".tie-btn-".concat(menuName));
+          _this3._buttonElements[menuName] = _this3._helpMenuBarElement.querySelector(".tie-btn-".concat(menuName));
         }
       });
     }
@@ -47907,14 +47871,14 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addHelpActionEvent",
     value: function _addHelpActionEvent() {
-      var _this5 = this;
+      var _this4 = this;
 
       forEach_default()(HELP_MENUS, function (helpName) {
-        _this5.eventHandler[helpName] = function (event) {
-          return _this5._actions.main[helpName](event);
+        _this4.eventHandler[helpName] = function (event) {
+          return _this4._actions.main[helpName](event);
         };
 
-        _this5._buttonElements[helpName].addEventListener('click', _this5.eventHandler[helpName]);
+        _this4._buttonElements[helpName].addEventListener('click', _this4.eventHandler[helpName]);
       });
     }
     /**
@@ -47925,10 +47889,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_removeHelpActionEvent",
     value: function _removeHelpActionEvent() {
-      var _this6 = this;
+      var _this5 = this;
 
       forEach_default()(HELP_MENUS, function (helpName) {
-        _this6._buttonElements[helpName].removeEventListener('click', _this6.eventHandler[helpName]);
+        _this5._buttonElements[helpName].removeEventListener('click', _this5.eventHandler[helpName]);
       });
     }
     /**
@@ -48023,23 +47987,23 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addDownloadEvent",
     value: function _addDownloadEvent() {
-      var _this7 = this;
+      var _this6 = this;
 
       this.eventHandler.download = function () {
-        return _this7._actions.main.download();
+        return _this6._actions.main.download();
       };
 
       forEach_default()(this._buttonElements.download, function (element) {
-        element.addEventListener('click', _this7.eventHandler.download);
+        element.addEventListener('click', _this6.eventHandler.download);
       });
     }
   }, {
     key: "_removeDownloadEvent",
     value: function _removeDownloadEvent() {
-      var _this8 = this;
+      var _this7 = this;
 
       forEach_default()(this._buttonElements.download, function (element) {
-        element.removeEventListener('click', _this8.eventHandler.download);
+        element.removeEventListener('click', _this7.eventHandler.download);
       });
     }
     /**
@@ -48050,14 +48014,14 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addLoadEvent",
     value: function _addLoadEvent() {
-      var _this9 = this;
+      var _this8 = this;
 
       this.eventHandler.loadImage = function (event) {
-        return _this9._actions.main.load(event.target.files[0]);
+        return _this8._actions.main.load(event.target.files[0]);
       };
 
       forEach_default()(this._buttonElements.load, function (element) {
-        element.addEventListener('change', _this9.eventHandler.loadImage);
+        element.addEventListener('change', _this8.eventHandler.loadImage);
       });
     }
     /**
@@ -48068,10 +48032,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_removeLoadEvent",
     value: function _removeLoadEvent() {
-      var _this10 = this;
+      var _this9 = this;
 
       forEach_default()(this._buttonElements.load, function (element) {
-        element.removeEventListener('change', _this10.eventHandler.loadImage);
+        element.removeEventListener('change', _this9.eventHandler.loadImage);
       });
     }
     /**
@@ -48083,10 +48047,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addMainMenuEvent",
     value: function _addMainMenuEvent(menuName) {
-      var _this11 = this;
+      var _this10 = this;
 
       this.eventHandler[menuName] = function () {
-        return _this11.changeMenu(menuName);
+        return _this10.changeMenu(menuName);
       };
 
       this._buttonElements[menuName].addEventListener('click', this.eventHandler[menuName]);
@@ -48100,14 +48064,14 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addSubMenuEvent",
     value: function _addSubMenuEvent(menuName) {
-      var _this12 = this;
+      var _this11 = this;
 
       this[menuName].addEvent(this._actions[menuName]);
       this[menuName].on(eventNames.INPUT_BOX_EDITING_STARTED, function () {
-        return _this12.fire(eventNames.INPUT_BOX_EDITING_STARTED);
+        return _this11.fire(eventNames.INPUT_BOX_EDITING_STARTED);
       });
       this[menuName].on(eventNames.INPUT_BOX_EDITING_STOPPED, function () {
-        return _this12.fire(eventNames.INPUT_BOX_EDITING_STOPPED);
+        return _this11.fire(eventNames.INPUT_BOX_EDITING_STOPPED);
       });
     }
     /**
@@ -48118,12 +48082,12 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addMenuEvent",
     value: function _addMenuEvent() {
-      var _this13 = this;
+      var _this12 = this;
 
       forEach_default()(this.options.menu, function (menuName) {
-        _this13._addMainMenuEvent(menuName);
+        _this12._addMainMenuEvent(menuName);
 
-        _this13._addSubMenuEvent(menuName);
+        _this12._addSubMenuEvent(menuName);
       });
     }
     /**
@@ -48134,14 +48098,14 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_removeMainMenuEvent",
     value: function _removeMainMenuEvent() {
-      var _this14 = this;
+      var _this13 = this;
 
       forEach_default()(this.options.menu, function (menuName) {
-        _this14._buttonElements[menuName].removeEventListener('click', _this14.eventHandler[menuName]);
+        _this13._buttonElements[menuName].removeEventListener('click', _this13.eventHandler[menuName]);
 
-        _this14[menuName].off(eventNames.INPUT_BOX_EDITING_STARTED);
+        _this13[menuName].off(eventNames.INPUT_BOX_EDITING_STARTED);
 
-        _this14[menuName].off(eventNames.INPUT_BOX_EDITING_STOPPED);
+        _this13[menuName].off(eventNames.INPUT_BOX_EDITING_STOPPED);
       });
     }
     /**
@@ -48205,10 +48169,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_destroyAllMenu",
     value: function _destroyAllMenu() {
-      var _this15 = this;
+      var _this14 = this;
 
       forEach_default()(this.options.menu, function (menuName) {
-        _this15[menuName].destroy();
+        _this14[menuName].destroy();
       });
 
       this._historyMenu.destroy();
@@ -48221,13 +48185,13 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "initCanvas",
     value: function initCanvas() {
-      var _this16 = this;
+      var _this15 = this;
 
       var loadImageInfo = this._getLoadImage();
 
       if (loadImageInfo.path) {
         this._actions.main.initLoadImage(loadImageInfo.path, loadImageInfo.name).then(function () {
-          _this16.activeMenuEvent();
+          _this15.activeMenuEvent();
         });
       }
 
