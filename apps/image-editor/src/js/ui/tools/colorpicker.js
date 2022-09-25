@@ -231,17 +231,18 @@ class Colorpicker {
    * @private
    */
   _setPickerControlPosition() {
-    const controlStyle = this.pickerControl.style;
-    const halfPickerWidth = this._colorpickerElement.clientWidth / 2 + 2;
-    const left = this.pickerControl.offsetWidth / 2 - halfPickerWidth;
-    let top = (this.pickerControl.offsetHeight + 10) * -1;
+    // const controlStyle = this.pickerControl.style;
+    // const left = this.pickerControl.offsetWidth - 100;
+    // let top = (this.pickerControl.offsetHeight + 10) * -1;
 
-    if (this._toggleDirection === 'down') {
-      top = 30;
-    }
+    // if (this._toggleDirection === 'down') {
+    //   top = 30;
+    // }
 
-    controlStyle.top = `${top}px`;
-    controlStyle.left = `-${left}px`;
+    // controlStyle.top = `${top}px`;
+    // controlStyle.left = `-${left}px`;
+    controlStyle.bottom = `450px`;
+    controlStyle.right = `100px`;
   }
 }
 
