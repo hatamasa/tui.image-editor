@@ -17,6 +17,7 @@ import Mask from '@/ui/mask';
 import Icon from '@/ui/icon';
 import Draw from '@/ui/draw';
 import Filter from '@/ui/filter';
+import History from '@/ui/history';
 import Locale from '@/ui/locale/locale';
 
 const SUB_UI_COMPONENT = {
@@ -33,14 +34,6 @@ const SUB_UI_COMPONENT = {
 };
 
 const BI_EXPRESSION_MINSIZE_WHEN_TOP_POSITION = '1300';
-const HISTORY_MENU = 'history';
-const HISTORY_PANEL_CLASS_NAME = 'tie-panel-history';
-
-const CLASS_NAME_ON = 'on';
-const ZOOM_BUTTON_TYPE = {
-  ZOOM_IN: 'zoomIn',
-  HAND: 'hand',
-};
 
 /**
  * Ui class
@@ -81,7 +74,6 @@ class Ui {
     this._makeSubMenu();
 
     this._attachHistoryEvent();
-    this._attachZoomEvent();
   }
 
   /**
@@ -176,41 +168,6 @@ class Ui {
   }
 
   /**
-   * Toggle zoom button status
-   * @param {string} type - type of zoom button
-   */
-  toggleZoomButtonStatus(type) {
-    const targetClassList = this._buttonElements[type].classList;
-
-    targetClassList.toggle(CLASS_NAME_ON);
-
-    if (type === ZOOM_BUTTON_TYPE.ZOOM_IN) {
-      this._buttonElements[ZOOM_BUTTON_TYPE.HAND].classList.remove(CLASS_NAME_ON);
-    } else {
-      this._buttonElements[ZOOM_BUTTON_TYPE.ZOOM_IN].classList.remove(CLASS_NAME_ON);
-    }
-  }
-
-  /**
-   * Turn off zoom-in button status
-   */
-  offZoomInButtonStatus() {
-    const zoomInClassList = this._buttonElements[ZOOM_BUTTON_TYPE.ZOOM_IN].classList;
-
-    zoomInClassList.remove(CLASS_NAME_ON);
-  }
-
-  /**
-   * Change hand button status
-   * @param {boolean} enabled - status to change
-   */
-  changeHandButtonStatus(enabled) {
-    const handClassList = this._buttonElements[ZOOM_BUTTON_TYPE.HAND].classList;
-
-    handClassList[enabled ? 'add' : 'remove'](CLASS_NAME_ON);
-  }
-
-  /**
    * Change help button status
    * @param {string} buttonType - target button type
    * @param {Boolean} enableStatus - enabled status
@@ -283,7 +240,7 @@ class Ui {
    * @private
    */
   _makeSubMenu() {
-    forEach([...HELP_MENUS, ...this.options.menu], (menuName) => {
+    forEach(this.options.menu, (menuName) => {
       const SubComponentClass =
         SUB_UI_COMPONENT[menuName.replace(/^[a-z]/, ($0) => $0.toUpperCase())];
 
@@ -311,18 +268,6 @@ class Ui {
     this.on(eventNames.EXECUTE_COMMAND, this._addHistory.bind(this));
     this.on(eventNames.AFTER_UNDO, this._selectPrevHistory.bind(this));
     this.on(eventNames.AFTER_REDO, this._selectNextHistory.bind(this));
-  }
-
-  /**
-   * Attach zoom event
-   * @private
-   */
-  _attachZoomEvent() {
-    this.on(eventNames.HAND_STARTED, () => {
-      this.offZoomInButtonStatus();
-      this.changeHandButtonStatus(true);
-    });
-    this.on(eventNames.HAND_STOPPED, () => this.changeHandButtonStatus(false));
   }
 
   /**
@@ -374,6 +319,11 @@ class Ui {
     };
 
     this._addHelpMenus();
+
+    this._historyMenu = new History({
+      locale: this._locale,
+      makeSvgIcon: this.theme.makeMenSvgIconSet.bind(this.theme),
+    });
   }
 
   /**
@@ -385,11 +335,12 @@ class Ui {
       if (!menuName) {
         this._makeMenuPartitionElement();
       } else {
-        this._makeMenuElement(menuName, ['normal', 'disabled', 'hover'], 'help');
-
-        this._buttonElements[menuName] = this._helpMenuBarElement.querySelector(
-          `.tie-btn-${menuName}`
-        );
+        this._makeMenuElement(menuName, ['normal', 'disabled', 'hover']);
+        // manuBarにHELP_MENUSも配置した
+        // this._buttonElements[menuName] = this._helpMenuBarElement.querySelector(
+        //   `.tie-btn-${menuName}`
+        // );
+        this._buttonElements[menuName] = this._menuBarElement.querySelector(`.tie-btn-${menuName}`);
       }
     });
   }
@@ -490,23 +441,6 @@ class Ui {
    */
   _selectNextHistory() {
     this._historyMenu.next();
-  }
-
-  /**
-   * Toggle history menu
-   * @param {object} event - event object
-   */
-  toggleHistoryMenu(event) {
-    const { target } = event;
-    const item = target.closest(`.${HISTORY_PANEL_CLASS_NAME}`);
-
-    if (item) {
-      return;
-    }
-
-    const historyButtonClassList = this._buttonElements[HISTORY_MENU].classList;
-
-    historyButtonClassList.toggle('opened');
   }
 
   /**
@@ -644,7 +578,6 @@ class Ui {
     this._removeDownloadEvent();
     this._removeLoadEvent();
     this._removeMainMenuEvent();
-    this._historyMenu.removeEvent();
   }
 
   /**

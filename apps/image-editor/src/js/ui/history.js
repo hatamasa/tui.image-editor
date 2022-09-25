@@ -2,7 +2,6 @@ import Panel from '@/ui/panelMenu';
 import templateHtml from '@/ui/template/submenu/history';
 import { assignmentForDestroy } from '@/util';
 
-const historyClassName = 'history-item';
 const selectedClassName = 'selected-item';
 const disabledClassName = 'disabled-item';
 
@@ -12,9 +11,8 @@ const disabledClassName = 'disabled-item';
  * @ignore
  */
 class History extends Panel {
-  constructor(menuElement, { locale, makeSvgIcon }) {
-    super(menuElement, { name: 'history' });
-    menuElement.classList.add('enabled');
+  constructor({ locale, makeSvgIcon }) {
+    super({ name: 'history' });
 
     this.locale = locale;
     this.makeSvgIcon = makeSvgIcon;
@@ -82,49 +80,6 @@ class History extends Panel {
   }
 
   /**
-   * Add history menu event
-   * @private
-   */
-  _addHistoryEventListener() {
-    this._eventHandler.history = (event) => this._clickHistoryItem(event);
-    this.listElement.addEventListener('click', this._eventHandler.history);
-  }
-
-  /**
-   * Remove history menu event
-   * @private
-   */
-  _removeHistoryEventListener() {
-    this.listElement.removeEventListener('click', this._eventHandler.history);
-  }
-
-  /**
-   * onClick history menu event listener
-   * @param {object} event - event object
-   * @private
-   */
-  _clickHistoryItem(event) {
-    const { target } = event;
-    const item = target.closest(`.${historyClassName}`);
-
-    if (!item) {
-      return;
-    }
-
-    const index = Number.parseInt(item.getAttribute('data-index'), 10);
-
-    if (index !== this._historyIndex) {
-      const count = Math.abs(index - this._historyIndex);
-
-      if (index < this._historyIndex) {
-        this._actions.undo(count);
-      } else {
-        this._actions.redo(count);
-      }
-    }
-  }
-
-  /**
    * Change item's state to selected state
    * @param {number} index - index of selected item
    */
@@ -143,8 +98,6 @@ class History extends Panel {
    * Destroys the instance.
    */
   destroy() {
-    this.removeEvent();
-
     assignmentForDestroy(this);
   }
 
@@ -156,15 +109,6 @@ class History extends Panel {
    */
   addEvent(actions) {
     this._actions = actions;
-    this._addHistoryEventListener();
-  }
-
-  /**
-   * Remove event
-   * @private
-   */
-  removeEvent() {
-    this._removeHistoryEventListener();
   }
 }
 

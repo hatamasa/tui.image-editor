@@ -1,7 +1,7 @@
 import extend from 'tui-code-snippet/object/extend';
 import Imagetracer from '@/helper/imagetracer';
 import { isSupportFileApi, base64ToBlob, toInteger, isEmptyCropzone, includes } from '@/util';
-import { eventNames, historyNames, drawingModes, drawingMenuNames, zoomModes } from '@/consts';
+import { eventNames, historyNames, drawingModes, drawingMenuNames } from '@/consts';
 
 export default {
   /**
@@ -54,28 +54,6 @@ export default {
 
       return result;
     };
-    const toggleZoomMode = () => {
-      const zoomMode = this._graphics.getZoomMode();
-
-      this.stopDrawingMode();
-      if (zoomMode !== zoomModes.ZOOM) {
-        this.startDrawingMode(drawingModes.ZOOM);
-        this._graphics.startZoomInMode();
-      } else {
-        this._graphics.endZoomInMode();
-      }
-    };
-    const toggleHandMode = () => {
-      const zoomMode = this._graphics.getZoomMode();
-
-      this.stopDrawingMode();
-      if (zoomMode !== zoomModes.HAND) {
-        this.startDrawingMode(drawingModes.ZOOM);
-        this._graphics.startHandMode();
-      } else {
-        this._graphics.endHandMode();
-      }
-    };
     const initFilterState = () => {
       if (this.ui.filter) {
         this.ui.filter.initFilterCheckBoxState();
@@ -122,12 +100,6 @@ export default {
           this.removeActiveObject();
           this.activeObjectId = null;
         },
-        deleteAll: () => {
-          exitCropOnAction();
-          this.clearObjects();
-          this.ui.changeHelpButtonEnabled('delete', false);
-          this.ui.changeHelpButtonEnabled('deleteAll', false);
-        },
         load: (file) => {
           if (!isSupportFileApi()) {
             alert('This browser does not support file-api');
@@ -162,23 +134,6 @@ export default {
             w = window.open();
             w.document.body.innerHTML = `<img src='${dataURL}'>`;
           }
-        },
-        history: (event) => {
-          this.ui.toggleHistoryMenu(event);
-        },
-        zoomIn: () => {
-          this.ui.toggleZoomButtonStatus('zoomIn');
-          this.deactivateAll();
-          toggleZoomMode();
-        },
-        zoomOut: () => {
-          this._graphics.zoomOut();
-        },
-        hand: () => {
-          this.ui.offZoomInButtonStatus();
-          this.ui.toggleZoomButtonStatus('hand');
-          this.deactivateAll();
-          toggleHandMode();
         },
       },
       this._commonAction()
@@ -525,10 +480,8 @@ export default {
       undoStackChanged: (length) => {
         if (length) {
           this.ui.changeHelpButtonEnabled('undo', true);
-          this.ui.changeHelpButtonEnabled('reset', true);
         } else {
           this.ui.changeHelpButtonEnabled('undo', false);
-          this.ui.changeHelpButtonEnabled('reset', false);
         }
         this.ui.resizeEditor();
       },
@@ -545,7 +498,6 @@ export default {
         this.activeObjectId = obj.id;
 
         this.ui.changeHelpButtonEnabled('delete', true);
-        this.ui.changeHelpButtonEnabled('deleteAll', true);
 
         if (obj.type === 'cropzone') {
           this.ui.crop.changeApplyButtonStatus(true);
@@ -644,7 +596,7 @@ export default {
    * @private
    */
   _commonAction() {
-    const { TEXT, CROPPER, SHAPE, ZOOM, RESIZE } = drawingModes;
+    const { TEXT, CROPPER, SHAPE, RESIZE } = drawingModes;
 
     return {
       modeChange: (menu) => {
@@ -658,9 +610,6 @@ export default {
           case drawingMenuNames.SHAPE:
             this._changeActivateMode(SHAPE);
             this.setDrawingShape(this.ui.shape.type, this.ui.shape.options);
-            break;
-          case drawingMenuNames.ZOOM:
-            this.startDrawingMode(ZOOM);
             break;
           case drawingMenuNames.RESIZE:
             this.startDrawingMode(RESIZE);

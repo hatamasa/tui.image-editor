@@ -70,7 +70,6 @@ export const componentNames = keyMirror(
   'ICON',
   'FILTER',
   'SHAPE',
-  'ZOOM',
   'RESIZE'
 );
 
@@ -156,9 +155,6 @@ export const eventNames = {
   EXECUTE_COMMAND: 'executeCommand',
   AFTER_UNDO: 'afterUndo',
   AFTER_REDO: 'afterRedo',
-  ZOOM_CHANGED: 'zoomChanged',
-  HAND_STARTED: 'handStarted',
-  HAND_STOPPED: 'handStopped',
   KEY_DOWN: 'keydown',
   KEY_UP: 'keyup',
   INPUT_BOX_EDITING_STARTED: 'inputBoxEditingStarted',
@@ -209,7 +205,6 @@ export const drawingModes = keyMirror(
   'TEXT',
   'SHAPE',
   'ICON',
-  'ZOOM',
   'RESIZE'
 );
 
@@ -222,17 +217,6 @@ export const drawingMenuNames = {
   CROP: 'crop',
   RESIZE: 'resize',
   SHAPE: 'shape',
-  ZOOM: 'zoom',
-};
-
-/**
- * Zoom modes
- * @type {Object.<string, string>}
- */
-export const zoomModes = {
-  DEFAULT: 'normal',
-  ZOOM: 'zoom',
-  HAND: 'hand',
 };
 
 /**

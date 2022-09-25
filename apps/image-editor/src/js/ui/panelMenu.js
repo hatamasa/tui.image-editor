@@ -6,19 +6,12 @@
 
 class Panel {
   /**
-   * @param {HTMLElement} menuElement - menu dom element
    * @param {Object} options - menu options
    *   @param {string} options.name - name of panel menu
    */
-  constructor(menuElement, { name }) {
+  constructor({ name }) {
     this.name = name;
     this.items = [];
-
-    this.panelElement = this._makePanelElement();
-    this.listElement = this._makeListElement();
-
-    this.panelElement.appendChild(this.listElement);
-    menuElement.appendChild(this.panelElement);
   }
 
   /**
@@ -31,19 +24,6 @@ class Panel {
     panel.className = `tie-panel-${this.name}`;
 
     return panel;
-  }
-
-  /**
-   * Make list element
-   * @returns {HTMLElement} list element
-   * @private
-   */
-  _makeListElement() {
-    const list = document.createElement('ol');
-
-    list.className = `${this.name}-list`;
-
-    return list;
   }
 
   /**
@@ -66,8 +46,6 @@ class Panel {
    * @param {HTMLElement} item - list item element to add to the list
    */
   pushListItemElement(item) {
-    this.listElement.appendChild(item);
-    this.listElement.scrollTop += item.offsetHeight;
     this.items.push(item);
   }
 
@@ -78,10 +56,6 @@ class Panel {
    */
   deleteListItemElement(start, end) {
     const { items } = this;
-
-    for (let i = start; i < end; i += 1) {
-      this.listElement.removeChild(items[i]);
-    }
     items.splice(start, end - start + 1);
   }
 
