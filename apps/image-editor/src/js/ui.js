@@ -292,15 +292,9 @@ class Ui {
         biImage: this.theme.getStyle('common.bi'),
         loadButtonStyle: this.theme.getStyle('loadButton'),
         downloadButtonStyle: this.theme.getStyle('downloadButton'),
-        menuBarPosition: this.options.menuBarPosition,
       }) +
       mainContainer({
-        locale: this._locale,
-        biImage: this.theme.getStyle('common.bi'),
         commonStyle: this.theme.getStyle('common'),
-        headerStyle: this.theme.getStyle('header'),
-        loadButtonStyle: this.theme.getStyle('loadButton'),
-        downloadButtonStyle: this.theme.getStyle('downloadButton'),
         submenuStyle: this.theme.getStyle('submenu'),
       });
 
@@ -310,7 +304,6 @@ class Ui {
     this._mainElement = selector('.tui-image-editor-main');
     this._editorElementWrap = selector('.tui-image-editor-wrap');
     this._editorElement = selector('.tui-image-editor');
-    this._helpMenuBarElement = selector('.tui-image-editor-help-menu');
     this._menuBarElement = selector('.tui-image-editor-menu');
     this._subMenuElement = selector('.tui-image-editor-submenu');
     this._buttonElements = {
@@ -336,10 +329,6 @@ class Ui {
         this._makeMenuPartitionElement();
       } else {
         this._makeMenuElement(menuName, ['normal', 'disabled', 'hover']);
-        // manuBarにHELP_MENUSも配置した
-        // this._buttonElements[menuName] = this._helpMenuBarElement.querySelector(
-        //   `.tie-btn-${menuName}`
-        // );
         this._buttonElements[menuName] = this._menuBarElement.querySelector(`.tie-btn-${menuName}`);
       }
     });
@@ -355,30 +344,24 @@ class Ui {
     partitionElement.className = cls('item');
     partitionInnerElement.className = cls('icpartition');
     partitionElement.appendChild(partitionInnerElement);
-
-    this._helpMenuBarElement.appendChild(partitionElement);
+    this._menuBarElement.appendChild(partitionElement);
   }
 
   /**
    * Make menu button element
    * @param {string} menuName - menu name
    * @param {Array} useIconTypes - Possible values are  \['normal', 'active', 'hover', 'disabled'\]
-   * @param {string} menuType - 'normal' or 'help'
    * @private
    */
-  _makeMenuElement(menuName, useIconTypes = ['normal', 'active', 'hover'], menuType = 'normal') {
+  _makeMenuElement(menuName, useIconTypes = ['normal', 'active', 'hover']) {
     const btnElement = document.createElement('li');
     const menuItemHtml = this.theme.makeMenSvgIconSet(useIconTypes, menuName);
 
     this._addTooltipAttribute(btnElement, menuName);
-    btnElement.className = `tie-btn-${menuName} ${cls('item')} ${menuType}`;
+    btnElement.className = `tie-btn-${menuName} ${cls('item')} normal`;
     btnElement.innerHTML = menuItemHtml;
 
-    if (menuType === 'normal') {
-      this._menuBarElement.appendChild(btnElement);
-    } else {
-      this._helpMenuBarElement.appendChild(btnElement);
-    }
+    this._menuBarElement.appendChild(btnElement);
   }
 
   /**
