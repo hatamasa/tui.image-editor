@@ -231,7 +231,7 @@ class Colorpicker {
    * @private
    */
   _setPickerControlPosition() {
-    // const controlStyle = this.pickerControl.style;
+    const controlStyle = this.pickerControl.style;
     // const left = this.pickerControl.offsetWidth - 100;
     // let top = (this.pickerControl.offsetHeight + 10) * -1;
 

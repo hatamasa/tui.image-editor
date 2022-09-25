@@ -40947,7 +40947,7 @@ var filterType = {
  * @type {Object.<string, string>}
  */
 
-var componentNames = keyMirror('IMAGE_LOADER', 'CROPPER', 'FLIP', 'ROTATION', 'FREE_DRAWING', 'LINE', 'TEXT', 'ICON', 'FILTER', 'SHAPE', 'ZOOM', 'RESIZE');
+var componentNames = keyMirror('IMAGE_LOADER', 'CROPPER', 'FLIP', 'ROTATION', 'FREE_DRAWING', 'LINE', 'TEXT', 'ICON', 'FILTER', 'SHAPE', 'RESIZE');
 /**
  * Shape default option
  * @type {Object}
@@ -41031,9 +41031,6 @@ var eventNames = {
   EXECUTE_COMMAND: 'executeCommand',
   AFTER_UNDO: 'afterUndo',
   AFTER_REDO: 'afterRedo',
-  ZOOM_CHANGED: 'zoomChanged',
-  HAND_STARTED: 'handStarted',
-  HAND_STOPPED: 'handStopped',
   KEY_DOWN: 'keydown',
   KEY_UP: 'keyup',
   INPUT_BOX_EDITING_STARTED: 'inputBoxEditingStarted',
@@ -41076,7 +41073,7 @@ var historyNames = {
  * @type {Object.<string, string>}
  */
 
-var drawingModes = keyMirror('NORMAL', 'CROPPER', 'FREE_DRAWING', 'LINE_DRAWING', 'TEXT', 'SHAPE', 'ICON', 'ZOOM', 'RESIZE');
+var drawingModes = keyMirror('NORMAL', 'CROPPER', 'FREE_DRAWING', 'LINE_DRAWING', 'TEXT', 'SHAPE', 'ICON', 'RESIZE');
 /**
  * Menu names with drawing mode
  * @type {Object.<string, string>}
@@ -41086,18 +41083,7 @@ var drawingMenuNames = {
   TEXT: 'text',
   CROP: 'crop',
   RESIZE: 'resize',
-  SHAPE: 'shape',
-  ZOOM: 'zoom'
-};
-/**
- * Zoom modes
- * @type {Object.<string, string>}
- */
-
-var zoomModes = {
-  DEFAULT: 'normal',
-  ZOOM: 'zoom',
-  HAND: 'hand'
+  SHAPE: 'shape'
 };
 /**
  * Shortcut key values
@@ -41856,27 +41842,6 @@ function getHistoryTitle(command) {
   return historyInfo;
 }
 /**
- * Get help menubar position(opposite of menubar)
- * @param {string} position - position of menubar
- * @returns {string} position of help menubar
- */
-
-function getHelpMenuBarPosition(position) {
-  if (position === 'top') {
-    return 'bottom';
-  }
-
-  if (position === 'left') {
-    return 'right';
-  }
-
-  if (position === 'right') {
-    return 'left';
-  }
-
-  return 'top';
-}
-/**
  * Change to capital start letter
  * @param {string} str - string to change
  * @returns {string}
@@ -42504,29 +42469,22 @@ var parse_float_default = /*#__PURE__*/__webpack_require__.n(parse_float);
 ;// CONCATENATED MODULE: ./src/js/ui/template/mainContainer.js
 
 /* harmony default export */ var mainContainer = (function (_ref) {
-  var _context, _context2, _context3, _context4, _context5, _context6, _context7;
+  var _context;
 
-  var locale = _ref.locale,
-      biImage = _ref.biImage,
-      commonStyle = _ref.commonStyle,
-      headerStyle = _ref.headerStyle,
-      loadButtonStyle = _ref.loadButtonStyle,
-      downloadButtonStyle = _ref.downloadButtonStyle,
+  var commonStyle = _ref.commonStyle,
       submenuStyle = _ref.submenuStyle;
-  return concat_default()(_context = concat_default()(_context2 = concat_default()(_context3 = concat_default()(_context4 = concat_default()(_context5 = concat_default()(_context6 = concat_default()(_context7 = "\n    <div class=\"tui-image-editor-main-container\" style=\"".concat(commonStyle, "\">\n        <div class=\"tui-image-editor-header\" style=\"")).call(_context7, headerStyle, "\">\n            <div class=\"tui-image-editor-header-logo\">\n                <img src=\"")).call(_context6, biImage, "\" />\n            </div>\n            <div class=\"tui-image-editor-header-buttons\">\n                <div style=\"")).call(_context5, loadButtonStyle, "\">\n                    ")).call(_context4, locale.localize('Load'), "\n                    <input type=\"file\" class=\"tui-image-editor-load-btn\" />\n                </div>\n                <button class=\"tui-image-editor-download-btn\" style=\"")).call(_context3, downloadButtonStyle, "\">\n                    ")).call(_context2, locale.localize('Download'), "\n                </button>\n            </div>\n        </div>\n        <div class=\"tui-image-editor-main\">\n            <div class=\"tui-image-editor-submenu\">\n                <div class=\"tui-image-editor-submenu-style\" style=\"")).call(_context, submenuStyle, "\"></div>\n            </div>\n            <div class=\"tui-image-editor-wrap\">\n                <div class=\"tui-image-editor-size-wrap\">\n                    <div class=\"tui-image-editor-align-wrap\">\n                        <div class=\"tui-image-editor\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n");
+  return concat_default()(_context = "\n    <div class=\"tui-image-editor-main-container\" style=\"".concat(commonStyle, "\">\n        <div class=\"tui-image-editor-main\">\n            <div class=\"tui-image-editor-submenu\">\n                <div class=\"tui-image-editor-submenu-style\" style=\"")).call(_context, submenuStyle, "\"></div>\n            </div>\n            <div class=\"tui-image-editor-wrap\">\n                <div class=\"tui-image-editor-size-wrap\">\n                    <div class=\"tui-image-editor-align-wrap\">\n                        <div class=\"tui-image-editor\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n");
 });
 ;// CONCATENATED MODULE: ./src/js/ui/template/controls.js
 
-
 /* harmony default export */ var controls = (function (_ref) {
-  var _context, _context2, _context3, _context4, _context5;
+  var _context, _context2, _context3, _context4;
 
   var locale = _ref.locale,
       biImage = _ref.biImage,
       loadButtonStyle = _ref.loadButtonStyle,
-      downloadButtonStyle = _ref.downloadButtonStyle,
-      menuBarPosition = _ref.menuBarPosition;
-  return concat_default()(_context = concat_default()(_context2 = concat_default()(_context3 = concat_default()(_context4 = concat_default()(_context5 = "\n    <ul class=\"tui-image-editor-help-menu ".concat(getHelpMenuBarPosition(menuBarPosition), "\"></ul>\n    <div class=\"tui-image-editor-controls\">\n        <div class=\"tui-image-editor-controls-logo\">\n            <img src=\"")).call(_context5, biImage, "\" />\n        </div>\n        <ul class=\"tui-image-editor-menu\"></ul>\n\n        <div class=\"tui-image-editor-controls-buttons\">\n            <div style=\"")).call(_context4, loadButtonStyle, "\">\n                ")).call(_context3, locale.localize('Load'), "\n                <input type=\"file\" class=\"tui-image-editor-load-btn\" />\n            </div>\n            <button class=\"tui-image-editor-download-btn\" style=\"")).call(_context2, downloadButtonStyle, "\">\n                ")).call(_context, locale.localize('Download'), "\n            </button>\n        </div>\n    </div>\n");
+      downloadButtonStyle = _ref.downloadButtonStyle;
+  return concat_default()(_context = concat_default()(_context2 = concat_default()(_context3 = concat_default()(_context4 = "\n    <div class=\"tui-image-editor-controls\">\n        <div class=\"tui-image-editor-controls-logo\">\n            <img src=\"".concat(biImage, "\" />\n        </div>\n        <ul class=\"tui-image-editor-menu\"></ul>\n\n        <div class=\"tui-image-editor-controls-buttons\">\n            <div style=\"")).call(_context4, loadButtonStyle, "\">\n                ")).call(_context3, locale.localize('Load'), "\n                <input type=\"file\" class=\"tui-image-editor-load-btn\" />\n            </div>\n            <button class=\"tui-image-editor-download-btn\" style=\"")).call(_context2, downloadButtonStyle, "\">\n                ")).call(_context, locale.localize('Download'), "\n            </button>\n        </div>\n    </div>\n");
 });
 // EXTERNAL MODULE: ../../node_modules/@babel/runtime-corejs3/core-js-stable/instance/map.js
 var instance_map = __webpack_require__(899);
@@ -43412,17 +43370,16 @@ var Colorpicker = /*#__PURE__*/function () {
   }, {
     key: "_setPickerControlPosition",
     value: function _setPickerControlPosition() {
-      var controlStyle = this.pickerControl.style;
-      var halfPickerWidth = this._colorpickerElement.clientWidth / 2 + 2;
-      var left = this.pickerControl.offsetWidth / 2 - halfPickerWidth;
-      var top = (this.pickerControl.offsetHeight + 10) * -1;
+      var controlStyle = this.pickerControl.style; // const left = this.pickerControl.offsetWidth - 100;
+      // let top = (this.pickerControl.offsetHeight + 10) * -1;
+      // if (this._toggleDirection === 'down') {
+      //   top = 30;
+      // }
+      // controlStyle.top = `${top}px`;
+      // controlStyle.left = `-${left}px`;
 
-      if (this._toggleDirection === 'down') {
-        top = 30;
-      }
-
-      controlStyle.top = "".concat(top, "px");
-      controlStyle.left = "-".concat(left, "px");
+      controlStyle.bottom = "450px";
+      controlStyle.right = "100px";
     }
   }]);
 
@@ -46888,6 +46845,329 @@ var Filter = /*#__PURE__*/function (_Submenu) {
 }(submenuBase);
 
 /* harmony default export */ var ui_filter = (Filter);
+;// CONCATENATED MODULE: ./src/js/ui/panelMenu.js
+
+
+
+
+/**
+ * Menu Panel Class
+ * @class
+ * @ignore
+ */
+var Panel = /*#__PURE__*/function () {
+  /**
+   * @param {Object} options - menu options
+   *   @param {string} options.name - name of panel menu
+   */
+  function Panel(_ref) {
+    var name = _ref.name;
+
+    _classCallCheck(this, Panel);
+
+    this.name = name;
+    this.items = [];
+  }
+  /**
+   * Make Panel element
+   * @returns {HTMLElement}
+   */
+
+
+  _createClass(Panel, [{
+    key: "_makePanelElement",
+    value: function _makePanelElement() {
+      var panel = document.createElement('div');
+      panel.className = "tie-panel-".concat(this.name);
+      return panel;
+    }
+    /**
+     * Make list item element
+     * @param {string} html - history list item html
+     * @returns {HTMLElement} list item element
+     */
+
+  }, {
+    key: "makeListItemElement",
+    value: function makeListItemElement(html) {
+      var listItem = document.createElement('li');
+      listItem.innerHTML = html;
+      listItem.className = "".concat(this.name, "-item");
+      listItem.setAttribute('data-index', this.items.length);
+      return listItem;
+    }
+    /**
+     * Push list item element
+     * @param {HTMLElement} item - list item element to add to the list
+     */
+
+  }, {
+    key: "pushListItemElement",
+    value: function pushListItemElement(item) {
+      this.items.push(item);
+    }
+    /**
+     * Delete list item element
+     * @param {number} start - start index to delete
+     * @param {number} end - end index to delete
+     */
+
+  }, {
+    key: "deleteListItemElement",
+    value: function deleteListItemElement(start, end) {
+      var items = this.items;
+
+      splice_default()(items).call(items, start, end - start + 1);
+    }
+    /**
+     * Get list's length
+     * @returns {number}
+     */
+
+  }, {
+    key: "getListLength",
+    value: function getListLength() {
+      return this.items.length;
+    }
+    /**
+     * Add class name of item
+     * @param {number} index - index of item
+     * @param {string} className - class name to add
+     */
+
+  }, {
+    key: "addClass",
+    value: function addClass(index, className) {
+      if (this.items[index]) {
+        this.items[index].classList.add(className);
+      }
+    }
+    /**
+     * Remove class name of item
+     * @param {number} index - index of item
+     * @param {string} className - class name to remove
+     */
+
+  }, {
+    key: "removeClass",
+    value: function removeClass(index, className) {
+      if (this.items[index]) {
+        this.items[index].classList.remove(className);
+      }
+    }
+    /**
+     * Toggle class name of item
+     * @param {number} index - index of item
+     * @param {string} className - class name to remove
+     */
+
+  }, {
+    key: "toggleClass",
+    value: function toggleClass(index, className) {
+      if (this.items[index]) {
+        this.items[index].classList.toggle(className);
+      }
+    }
+  }]);
+
+  return Panel;
+}();
+
+/* harmony default export */ var panelMenu = (Panel);
+;// CONCATENATED MODULE: ./src/js/ui/template/submenu/history.js
+
+
+/**
+ * @param {Object} submenuInfo - submenu info for make template
+ *   @param {Locale} locale - Translate text
+ *   @param {Function} makeSvgIcon - svg icon generator
+ *   @param {string} name - history name
+ *   @param {string} detail - history detail information
+ * @returns {string}
+ */
+/* harmony default export */ var submenu_history = (function (_ref) {
+  var _context, _context2, _context3;
+
+  var locale = _ref.locale,
+      makeSvgIcon = _ref.makeSvgIcon,
+      name = _ref.name,
+      detail = _ref.detail;
+  return concat_default()(_context = concat_default()(_context2 = concat_default()(_context3 = "\n    <div class=\"tui-image-editor-history-item history\">\n        <div class=\"history-item-icon\">\n            ".concat(makeSvgIcon(['normal', 'active'], "history-".concat(name.toLowerCase()), true), "\n        </div>\n        <span>\n            ")).call(_context3, locale.localize(name), "\n            ")).call(_context2, detail ? "(".concat(locale.localize(detail), ")") : '', "\n        </span>\n        <div class=\"history-item-checkbox\">\n            ")).call(_context, makeSvgIcon(['normal'], 'history-check', true), "\n        </div>\n    </div>\n");
+});
+;// CONCATENATED MODULE: ./src/js/ui/history.js
+
+
+
+
+
+
+
+function history_createSuper(Derived) { var hasNativeReflectConstruct = history_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = construct_default()(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function history_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !(construct_default())) return false; if ((construct_default()).sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+var selectedClassName = 'selected-item';
+var disabledClassName = 'disabled-item';
+/**
+ * History ui class
+ * @class
+ * @ignore
+ */
+
+var History = /*#__PURE__*/function (_Panel) {
+  _inherits(History, _Panel);
+
+  var _super = history_createSuper(History);
+
+  function History(_ref) {
+    var _this;
+
+    var locale = _ref.locale,
+        makeSvgIcon = _ref.makeSvgIcon;
+
+    _classCallCheck(this, History);
+
+    _this = _super.call(this, {
+      name: 'history'
+    });
+    _this.locale = locale;
+    _this.makeSvgIcon = makeSvgIcon;
+    _this._eventHandler = {};
+    _this._historyIndex = _this.getListLength();
+    return _this;
+  }
+  /**
+   * Add history
+   * @param {string} name - name of history
+   * @param {?string} detail - detail information of history
+   */
+
+
+  _createClass(History, [{
+    key: "add",
+    value: function add(_ref2) {
+      var name = _ref2.name,
+          detail = _ref2.detail;
+
+      if (this._hasDisabledItem()) {
+        this.deleteListItemElement(this._historyIndex + 1, this.getListLength());
+      }
+
+      var html = submenu_history({
+        locale: this.locale,
+        makeSvgIcon: this.makeSvgIcon,
+        name: name,
+        detail: detail
+      });
+      var item = this.makeListItemElement(html);
+      this.pushListItemElement(item);
+      this._historyIndex = this.getListLength() - 1;
+
+      this._selectItem(this._historyIndex);
+    }
+    /**
+     * Init history
+     */
+
+  }, {
+    key: "init",
+    value: function init() {
+      this.deleteListItemElement(1, this.getListLength());
+      this._historyIndex = 0;
+
+      this._selectItem(this._historyIndex);
+    }
+    /**
+     * Clear history
+     */
+
+  }, {
+    key: "clear",
+    value: function clear() {
+      this.deleteListItemElement(0, this.getListLength());
+      this._historyIndex = -1;
+    }
+    /**
+     * Select previous history of current selected history
+     */
+
+  }, {
+    key: "prev",
+    value: function prev() {
+      this._historyIndex -= 1;
+
+      this._selectItem(this._historyIndex);
+    }
+    /**
+     * Select next history of current selected history
+     */
+
+  }, {
+    key: "next",
+    value: function next() {
+      this._historyIndex += 1;
+
+      this._selectItem(this._historyIndex);
+    }
+    /**
+     * Whether history menu has disabled item
+     * @returns {boolean}
+     */
+
+  }, {
+    key: "_hasDisabledItem",
+    value: function _hasDisabledItem() {
+      return this.getListLength() - 1 > this._historyIndex;
+    }
+    /**
+     * Change item's state to selected state
+     * @param {number} index - index of selected item
+     */
+
+  }, {
+    key: "_selectItem",
+    value: function _selectItem(index) {
+      for (var i = 0; i < this.getListLength(); i += 1) {
+        this.removeClass(i, selectedClassName);
+        this.removeClass(i, disabledClassName);
+
+        if (i > index) {
+          this.addClass(i, disabledClassName);
+        }
+      }
+
+      this.addClass(index, selectedClassName);
+    }
+    /**
+     * Destroys the instance.
+     */
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      assignmentForDestroy(this);
+    }
+    /**
+     * Add event for history
+     * @param {Object} actions - actions for crop
+     *   @param {Function} actions.undo - undo action
+     *   @param {Function} actions.redo - redo action
+     */
+
+  }, {
+    key: "addEvent",
+    value: function addEvent(actions) {
+      this._actions = actions;
+    }
+  }]);
+
+  return History;
+}(panelMenu);
+
+/* harmony default export */ var ui_history = (History);
 ;// CONCATENATED MODULE: ./src/js/ui/locale/locale.js
 
 
@@ -46958,13 +47238,6 @@ var SUB_UI_COMPONENT = {
   Filter: ui_filter
 };
 var BI_EXPRESSION_MINSIZE_WHEN_TOP_POSITION = '1300';
-var HISTORY_MENU = 'history';
-var HISTORY_PANEL_CLASS_NAME = 'tie-panel-history';
-var CLASS_NAME_ON = 'on';
-var ZOOM_BUTTON_TYPE = {
-  ZOOM_IN: 'zoomIn',
-  HAND: 'hand'
-};
 /**
  * Ui class
  * @class
@@ -47010,8 +47283,6 @@ var Ui = /*#__PURE__*/function () {
     this._makeSubMenu();
 
     this._attachHistoryEvent();
-
-    this._attachZoomEvent();
   }
   /**
    * Destroys the instance.
@@ -47114,44 +47385,6 @@ var Ui = /*#__PURE__*/function () {
       }
     }
     /**
-     * Toggle zoom button status
-     * @param {string} type - type of zoom button
-     */
-
-  }, {
-    key: "toggleZoomButtonStatus",
-    value: function toggleZoomButtonStatus(type) {
-      var targetClassList = this._buttonElements[type].classList;
-      targetClassList.toggle(CLASS_NAME_ON);
-
-      if (type === ZOOM_BUTTON_TYPE.ZOOM_IN) {
-        this._buttonElements[ZOOM_BUTTON_TYPE.HAND].classList.remove(CLASS_NAME_ON);
-      } else {
-        this._buttonElements[ZOOM_BUTTON_TYPE.ZOOM_IN].classList.remove(CLASS_NAME_ON);
-      }
-    }
-    /**
-     * Turn off zoom-in button status
-     */
-
-  }, {
-    key: "offZoomInButtonStatus",
-    value: function offZoomInButtonStatus() {
-      var zoomInClassList = this._buttonElements[ZOOM_BUTTON_TYPE.ZOOM_IN].classList;
-      zoomInClassList.remove(CLASS_NAME_ON);
-    }
-    /**
-     * Change hand button status
-     * @param {boolean} enabled - status to change
-     */
-
-  }, {
-    key: "changeHandButtonStatus",
-    value: function changeHandButtonStatus(enabled) {
-      var handClassList = this._buttonElements[ZOOM_BUTTON_TYPE.HAND].classList;
-      handClassList[enabled ? 'add' : 'remove'](CLASS_NAME_ON);
-    }
-    /**
      * Change help button status
      * @param {string} buttonType - target button type
      * @param {Boolean} enableStatus - enabled status
@@ -47219,11 +47452,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_makeSubMenu",
     value: function _makeSubMenu() {
-      var _context,
-          _this = this;
+      var _this = this;
 
-      forEach_default()(concat_default()(_context = []).call(_context, _toConsumableArray(HELP_MENUS), _toConsumableArray(this.options.menu)), function (menuName) {
-        var _context2;
+      forEach_default()(this.options.menu, function (menuName) {
+        var _context;
 
         var SubComponentClass = SUB_UI_COMPONENT[menuName.replace(/^[a-z]/, function ($0) {
           return $0.toUpperCase();
@@ -47236,7 +47468,7 @@ var Ui = /*#__PURE__*/function () {
 
         _this[menuName] = new SubComponentClass(_this._subMenuElement, {
           locale: _this._locale,
-          makeSvgIcon: bind_default()(_context2 = _this.theme.makeMenSvgIconSet).call(_context2, _this.theme),
+          makeSvgIcon: bind_default()(_context = _this.theme.makeMenSvgIconSet).call(_context, _this.theme),
           menuBarPosition: _this.options.menuBarPosition,
           usageStatistics: _this.options.usageStatistics
         });
@@ -47250,30 +47482,11 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_attachHistoryEvent",
     value: function _attachHistoryEvent() {
-      var _context3, _context4, _context5;
+      var _context2, _context3, _context4;
 
-      this.on(eventNames.EXECUTE_COMMAND, bind_default()(_context3 = this._addHistory).call(_context3, this));
-      this.on(eventNames.AFTER_UNDO, bind_default()(_context4 = this._selectPrevHistory).call(_context4, this));
-      this.on(eventNames.AFTER_REDO, bind_default()(_context5 = this._selectNextHistory).call(_context5, this));
-    }
-    /**
-     * Attach zoom event
-     * @private
-     */
-
-  }, {
-    key: "_attachZoomEvent",
-    value: function _attachZoomEvent() {
-      var _this2 = this;
-
-      this.on(eventNames.HAND_STARTED, function () {
-        _this2.offZoomInButtonStatus();
-
-        _this2.changeHandButtonStatus(true);
-      });
-      this.on(eventNames.HAND_STOPPED, function () {
-        return _this2.changeHandButtonStatus(false);
-      });
+      this.on(eventNames.EXECUTE_COMMAND, bind_default()(_context2 = this._addHistory).call(_context2, this));
+      this.on(eventNames.AFTER_UNDO, bind_default()(_context3 = this._selectPrevHistory).call(_context3, this));
+      this.on(eventNames.AFTER_REDO, bind_default()(_context4 = this._selectNextHistory).call(_context4, this));
     }
     /**
      * Make primary ui dom element
@@ -47284,6 +47497,8 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_makeUiElement",
     value: function _makeUiElement(element) {
+      var _context5;
+
       var selectedElement;
 
       if (element.nodeType) {
@@ -47298,15 +47513,9 @@ var Ui = /*#__PURE__*/function () {
         locale: this._locale,
         biImage: this.theme.getStyle('common.bi'),
         loadButtonStyle: this.theme.getStyle('loadButton'),
-        downloadButtonStyle: this.theme.getStyle('downloadButton'),
-        menuBarPosition: this.options.menuBarPosition
+        downloadButtonStyle: this.theme.getStyle('downloadButton')
       }) + mainContainer({
-        locale: this._locale,
-        biImage: this.theme.getStyle('common.bi'),
         commonStyle: this.theme.getStyle('common'),
-        headerStyle: this.theme.getStyle('header'),
-        loadButtonStyle: this.theme.getStyle('loadButton'),
-        downloadButtonStyle: this.theme.getStyle('downloadButton'),
         submenuStyle: this.theme.getStyle('submenu')
       });
       this._selectedElement = selectedElement;
@@ -47316,7 +47525,6 @@ var Ui = /*#__PURE__*/function () {
       this._mainElement = selector('.tui-image-editor-main');
       this._editorElementWrap = selector('.tui-image-editor-wrap');
       this._editorElement = selector('.tui-image-editor');
-      this._helpMenuBarElement = selector('.tui-image-editor-help-menu');
       this._menuBarElement = selector('.tui-image-editor-menu');
       this._subMenuElement = selector('.tui-image-editor-submenu');
       this._buttonElements = {
@@ -47325,6 +47533,11 @@ var Ui = /*#__PURE__*/function () {
       };
 
       this._addHelpMenus();
+
+      this._historyMenu = new ui_history({
+        locale: this._locale,
+        makeSvgIcon: bind_default()(_context5 = this.theme.makeMenSvgIconSet).call(_context5, this.theme)
+      });
     }
     /**
      * Add help menu
@@ -47334,15 +47547,15 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addHelpMenus",
     value: function _addHelpMenus() {
-      var _this3 = this;
+      var _this2 = this;
 
       forEach_default()(HELP_MENUS, function (menuName) {
         if (!menuName) {
-          _this3._makeMenuPartitionElement();
+          _this2._makeMenuPartitionElement();
         } else {
-          _this3._makeMenuElement(menuName, ['normal', 'disabled', 'hover'], 'help');
+          _this2._makeMenuElement(menuName, ['normal', 'disabled', 'hover']);
 
-          _this3._buttonElements[menuName] = _this3._helpMenuBarElement.querySelector(".tie-btn-".concat(menuName));
+          _this2._buttonElements[menuName] = _this2._menuBarElement.querySelector(".tie-btn-".concat(menuName));
         }
       });
     }
@@ -47360,36 +47573,30 @@ var Ui = /*#__PURE__*/function () {
       partitionInnerElement.className = cls('icpartition');
       partitionElement.appendChild(partitionInnerElement);
 
-      this._helpMenuBarElement.appendChild(partitionElement);
+      this._menuBarElement.appendChild(partitionElement);
     }
     /**
      * Make menu button element
      * @param {string} menuName - menu name
      * @param {Array} useIconTypes - Possible values are  \['normal', 'active', 'hover', 'disabled'\]
-     * @param {string} menuType - 'normal' or 'help'
      * @private
      */
 
   }, {
     key: "_makeMenuElement",
     value: function _makeMenuElement(menuName) {
-      var _context6, _context7;
+      var _context6;
 
       var useIconTypes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ['normal', 'active', 'hover'];
-      var menuType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'normal';
       var btnElement = document.createElement('li');
       var menuItemHtml = this.theme.makeMenSvgIconSet(useIconTypes, menuName);
 
       this._addTooltipAttribute(btnElement, menuName);
 
-      btnElement.className = concat_default()(_context6 = concat_default()(_context7 = "tie-btn-".concat(menuName, " ")).call(_context7, cls('item'), " ")).call(_context6, menuType);
+      btnElement.className = concat_default()(_context6 = "tie-btn-".concat(menuName, " ")).call(_context6, cls('item'), " normal");
       btnElement.innerHTML = menuItemHtml;
 
-      if (menuType === 'normal') {
-        this._menuBarElement.appendChild(btnElement);
-      } else {
-        this._helpMenuBarElement.appendChild(btnElement);
-      }
+      this._menuBarElement.appendChild(btnElement);
     }
     /**
      * Add help action event
@@ -47399,14 +47606,14 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addHelpActionEvent",
     value: function _addHelpActionEvent() {
-      var _this4 = this;
+      var _this3 = this;
 
       forEach_default()(HELP_MENUS, function (helpName) {
-        _this4.eventHandler[helpName] = function (event) {
-          return _this4._actions.main[helpName](event);
+        _this3.eventHandler[helpName] = function (event) {
+          return _this3._actions.main[helpName](event);
         };
 
-        _this4._buttonElements[helpName].addEventListener('click', _this4.eventHandler[helpName]);
+        _this3._buttonElements[helpName].addEventListener('click', _this3.eventHandler[helpName]);
       });
     }
     /**
@@ -47417,10 +47624,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_removeHelpActionEvent",
     value: function _removeHelpActionEvent() {
-      var _this5 = this;
+      var _this4 = this;
 
       forEach_default()(HELP_MENUS, function (helpName) {
-        _this5._buttonElements[helpName].removeEventListener('click', _this5.eventHandler[helpName]);
+        _this4._buttonElements[helpName].removeEventListener('click', _this4.eventHandler[helpName]);
       });
     }
     /**
@@ -47476,24 +47683,6 @@ var Ui = /*#__PURE__*/function () {
       this._historyMenu.next();
     }
     /**
-     * Toggle history menu
-     * @param {object} event - event object
-     */
-
-  }, {
-    key: "toggleHistoryMenu",
-    value: function toggleHistoryMenu(event) {
-      var target = event.target;
-      var item = target.closest(".".concat(HISTORY_PANEL_CLASS_NAME));
-
-      if (item) {
-        return;
-      }
-
-      var historyButtonClassList = this._buttonElements[HISTORY_MENU].classList;
-      historyButtonClassList.toggle('opened');
-    }
-    /**
      * Add attribute for menu tooltip
      * @param {HTMLElement} element - menu element
      * @param {string} tooltipName - tooltipName
@@ -47515,23 +47704,23 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addDownloadEvent",
     value: function _addDownloadEvent() {
-      var _this6 = this;
+      var _this5 = this;
 
       this.eventHandler.download = function () {
-        return _this6._actions.main.download();
+        return _this5._actions.main.download();
       };
 
       forEach_default()(this._buttonElements.download, function (element) {
-        element.addEventListener('click', _this6.eventHandler.download);
+        element.addEventListener('click', _this5.eventHandler.download);
       });
     }
   }, {
     key: "_removeDownloadEvent",
     value: function _removeDownloadEvent() {
-      var _this7 = this;
+      var _this6 = this;
 
       forEach_default()(this._buttonElements.download, function (element) {
-        element.removeEventListener('click', _this7.eventHandler.download);
+        element.removeEventListener('click', _this6.eventHandler.download);
       });
     }
     /**
@@ -47542,14 +47731,14 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addLoadEvent",
     value: function _addLoadEvent() {
-      var _this8 = this;
+      var _this7 = this;
 
       this.eventHandler.loadImage = function (event) {
-        return _this8._actions.main.load(event.target.files[0]);
+        return _this7._actions.main.load(event.target.files[0]);
       };
 
       forEach_default()(this._buttonElements.load, function (element) {
-        element.addEventListener('change', _this8.eventHandler.loadImage);
+        element.addEventListener('change', _this7.eventHandler.loadImage);
       });
     }
     /**
@@ -47560,10 +47749,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_removeLoadEvent",
     value: function _removeLoadEvent() {
-      var _this9 = this;
+      var _this8 = this;
 
       forEach_default()(this._buttonElements.load, function (element) {
-        element.removeEventListener('change', _this9.eventHandler.loadImage);
+        element.removeEventListener('change', _this8.eventHandler.loadImage);
       });
     }
     /**
@@ -47575,10 +47764,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addMainMenuEvent",
     value: function _addMainMenuEvent(menuName) {
-      var _this10 = this;
+      var _this9 = this;
 
       this.eventHandler[menuName] = function () {
-        return _this10.changeMenu(menuName);
+        return _this9.changeMenu(menuName);
       };
 
       this._buttonElements[menuName].addEventListener('click', this.eventHandler[menuName]);
@@ -47592,14 +47781,14 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addSubMenuEvent",
     value: function _addSubMenuEvent(menuName) {
-      var _this11 = this;
+      var _this10 = this;
 
       this[menuName].addEvent(this._actions[menuName]);
       this[menuName].on(eventNames.INPUT_BOX_EDITING_STARTED, function () {
-        return _this11.fire(eventNames.INPUT_BOX_EDITING_STARTED);
+        return _this10.fire(eventNames.INPUT_BOX_EDITING_STARTED);
       });
       this[menuName].on(eventNames.INPUT_BOX_EDITING_STOPPED, function () {
-        return _this11.fire(eventNames.INPUT_BOX_EDITING_STOPPED);
+        return _this10.fire(eventNames.INPUT_BOX_EDITING_STOPPED);
       });
     }
     /**
@@ -47610,12 +47799,12 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_addMenuEvent",
     value: function _addMenuEvent() {
-      var _this12 = this;
+      var _this11 = this;
 
       forEach_default()(this.options.menu, function (menuName) {
-        _this12._addMainMenuEvent(menuName);
+        _this11._addMainMenuEvent(menuName);
 
-        _this12._addSubMenuEvent(menuName);
+        _this11._addSubMenuEvent(menuName);
       });
     }
     /**
@@ -47626,14 +47815,14 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_removeMainMenuEvent",
     value: function _removeMainMenuEvent() {
-      var _this13 = this;
+      var _this12 = this;
 
       forEach_default()(this.options.menu, function (menuName) {
-        _this13._buttonElements[menuName].removeEventListener('click', _this13.eventHandler[menuName]);
+        _this12._buttonElements[menuName].removeEventListener('click', _this12.eventHandler[menuName]);
 
-        _this13[menuName].off(eventNames.INPUT_BOX_EDITING_STARTED);
+        _this12[menuName].off(eventNames.INPUT_BOX_EDITING_STARTED);
 
-        _this13[menuName].off(eventNames.INPUT_BOX_EDITING_STOPPED);
+        _this12[menuName].off(eventNames.INPUT_BOX_EDITING_STOPPED);
       });
     }
     /**
@@ -47686,8 +47875,6 @@ var Ui = /*#__PURE__*/function () {
       this._removeLoadEvent();
 
       this._removeMainMenuEvent();
-
-      this._historyMenu.removeEvent();
     }
     /**
      * Destroy all menu instance
@@ -47697,10 +47884,10 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_destroyAllMenu",
     value: function _destroyAllMenu() {
-      var _this14 = this;
+      var _this13 = this;
 
       forEach_default()(this.options.menu, function (menuName) {
-        _this14[menuName].destroy();
+        _this13[menuName].destroy();
       });
 
       this._historyMenu.destroy();
@@ -47713,13 +47900,13 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "initCanvas",
     value: function initCanvas() {
-      var _this15 = this;
+      var _this14 = this;
 
       var loadImageInfo = this._getLoadImage();
 
       if (loadImageInfo.path) {
         this._actions.main.initLoadImage(loadImageInfo.path, loadImageInfo.name).then(function () {
-          _this15.activeMenuEvent();
+          _this14.activeMenuEvent();
         });
       }
 
@@ -49405,34 +49592,6 @@ var ImageTracer = /*#__PURE__*/function () {
       return result;
     };
 
-    var toggleZoomMode = function toggleZoomMode() {
-      var zoomMode = _this._graphics.getZoomMode();
-
-      _this.stopDrawingMode();
-
-      if (zoomMode !== zoomModes.ZOOM) {
-        _this.startDrawingMode(drawingModes.ZOOM);
-
-        _this._graphics.startZoomInMode();
-      } else {
-        _this._graphics.endZoomInMode();
-      }
-    };
-
-    var toggleHandMode = function toggleHandMode() {
-      var zoomMode = _this._graphics.getZoomMode();
-
-      _this.stopDrawingMode();
-
-      if (zoomMode !== zoomModes.HAND) {
-        _this.startDrawingMode(drawingModes.ZOOM);
-
-        _this._graphics.startHandMode();
-      } else {
-        _this._graphics.endHandMode();
-      }
-    };
-
     var initFilterState = function initFilterState() {
       if (filter_default()(_this.ui)) {
         filter_default()(_this.ui).initFilterCheckBoxState();
@@ -49497,15 +49656,6 @@ var ImageTracer = /*#__PURE__*/function () {
 
         _this.activeObjectId = null;
       },
-      deleteAll: function deleteAll() {
-        exitCropOnAction();
-
-        _this.clearObjects();
-
-        _this.ui.changeHelpButtonEnabled('delete', false);
-
-        _this.ui.changeHelpButtonEnabled('deleteAll', false);
-      },
       load: function load(file) {
         if (!isSupportFileApi()) {
           alert('This browser does not support file-api');
@@ -49552,28 +49702,6 @@ var ImageTracer = /*#__PURE__*/function () {
           w = window.open();
           w.document.body.innerHTML = "<img src='".concat(dataURL, "'>");
         }
-      },
-      history: function history(event) {
-        _this.ui.toggleHistoryMenu(event);
-      },
-      zoomIn: function zoomIn() {
-        _this.ui.toggleZoomButtonStatus('zoomIn');
-
-        _this.deactivateAll();
-
-        toggleZoomMode();
-      },
-      zoomOut: function zoomOut() {
-        _this._graphics.zoomOut();
-      },
-      hand: function hand() {
-        _this.ui.offZoomInButtonStatus();
-
-        _this.ui.toggleZoomButtonStatus('hand');
-
-        _this.deactivateAll();
-
-        toggleHandMode();
       }
     }, this._commonAction());
   },
@@ -49967,12 +50095,8 @@ var ImageTracer = /*#__PURE__*/function () {
       undoStackChanged: function undoStackChanged(length) {
         if (length) {
           _this12.ui.changeHelpButtonEnabled('undo', true);
-
-          _this12.ui.changeHelpButtonEnabled('reset', true);
         } else {
           _this12.ui.changeHelpButtonEnabled('undo', false);
-
-          _this12.ui.changeHelpButtonEnabled('reset', false);
         }
 
         _this12.ui.resizeEditor();
@@ -49994,8 +50118,6 @@ var ImageTracer = /*#__PURE__*/function () {
         _this12.activeObjectId = obj.id;
 
         _this12.ui.changeHelpButtonEnabled('delete', true);
-
-        _this12.ui.changeHelpButtonEnabled('deleteAll', true);
 
         if (obj.type === 'cropzone') {
           _this12.ui.crop.changeApplyButtonStatus(true);
@@ -50136,7 +50258,6 @@ var ImageTracer = /*#__PURE__*/function () {
     var TEXT = drawingModes.TEXT,
         CROPPER = drawingModes.CROPPER,
         SHAPE = drawingModes.SHAPE,
-        ZOOM = drawingModes.ZOOM,
         RESIZE = drawingModes.RESIZE;
     return {
       modeChange: function modeChange(menu) {
@@ -50155,11 +50276,6 @@ var ImageTracer = /*#__PURE__*/function () {
             _this14._changeActivateMode(SHAPE);
 
             _this14.setDrawingShape(_this14.ui.shape.type, _this14.ui.shape.options);
-
-            break;
-
-          case drawingMenuNames.ZOOM:
-            _this14.startDrawingMode(ZOOM);
 
             break;
 
@@ -55188,875 +55304,6 @@ var shape_Shape = /*#__PURE__*/function (_Component) {
 }(component);
 
 
-;// CONCATENATED MODULE: ./src/js/component/zoom.js
-
-
-
-
-
-
-
-
-
-
-function zoom_createSuper(Derived) { var hasNativeReflectConstruct = zoom_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = construct_default()(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function zoom_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !(construct_default())) return false; if ((construct_default()).sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var zoom_MOUSE_MOVE_THRESHOLD = 10;
-var DEFAULT_SCROLL_OPTION = {
-  left: 0,
-  top: 0,
-  width: 0,
-  height: 0,
-  stroke: '#000000',
-  strokeWidth: 0,
-  fill: '#000000',
-  opacity: 0.4,
-  evented: false,
-  selectable: false,
-  hoverCursor: 'auto'
-};
-var DEFAULT_VERTICAL_SCROLL_RATIO = {
-  SIZE: 0.0045,
-  MARGIN: 0.003,
-  BORDER_RADIUS: 0.003
-};
-var DEFAULT_HORIZONTAL_SCROLL_RATIO = {
-  SIZE: 0.0066,
-  MARGIN: 0.0044,
-  BORDER_RADIUS: 0.003
-};
-var DEFAULT_ZOOM_LEVEL = 1.0;
-var ZOOM_CHANGED = eventNames.ZOOM_CHANGED,
-    ADD_TEXT = eventNames.ADD_TEXT,
-    TEXT_EDITING = eventNames.TEXT_EDITING,
-    OBJECT_MODIFIED = eventNames.OBJECT_MODIFIED,
-    KEY_DOWN = eventNames.KEY_DOWN,
-    KEY_UP = eventNames.KEY_UP,
-    HAND_STARTED = eventNames.HAND_STARTED,
-    HAND_STOPPED = eventNames.HAND_STOPPED;
-/**
- * Zoom components
- * @param {Graphics} graphics - Graphics instance
- * @extends {Component}
- * @class Zoom
- * @ignore
- */
-
-var Zoom = /*#__PURE__*/function (_Component) {
-  _inherits(Zoom, _Component);
-
-  var _super = zoom_createSuper(Zoom);
-
-  function Zoom(graphics) {
-    var _context, _context2, _context3, _context4, _context5, _context6, _context7, _context8, _context9, _context10, _context11, _context12;
-
-    var _this;
-
-    _classCallCheck(this, Zoom);
-
-    _this = _super.call(this, componentNames.ZOOM, graphics);
-    /**
-     * zoomArea
-     * @type {?fabric.Rect}
-     * @private
-     */
-
-    _this.zoomArea = null;
-    /**
-     * Start point of zoom area
-     * @type {?{x: number, y: number}}
-     */
-
-    _this._startPoint = null;
-    /**
-     * Center point of every zoom
-     * @type {Array.<{prevZoomLevel: number, zoomLevel: number, x: number, y: number}>}
-     */
-
-    _this._centerPoints = [];
-    /**
-     * Zoom level (default: 100%(1.0), max: 400%(4.0))
-     * @type {number}
-     */
-
-    _this.zoomLevel = DEFAULT_ZOOM_LEVEL;
-    /**
-     * Zoom mode ('normal', 'zoom', 'hand')
-     * @type {string}
-     */
-
-    _this.zoomMode = zoomModes.DEFAULT;
-    /**
-     * Listeners
-     * @type {Object.<string, Function>}
-     * @private
-     */
-
-    _this._listeners = {
-      startZoom: bind_default()(_context = _this._onMouseDownWithZoomMode).call(_context, _assertThisInitialized(_this)),
-      moveZoom: bind_default()(_context2 = _this._onMouseMoveWithZoomMode).call(_context2, _assertThisInitialized(_this)),
-      stopZoom: bind_default()(_context3 = _this._onMouseUpWithZoomMode).call(_context3, _assertThisInitialized(_this)),
-      startHand: bind_default()(_context4 = _this._onMouseDownWithHandMode).call(_context4, _assertThisInitialized(_this)),
-      moveHand: bind_default()(_context5 = _this._onMouseMoveWithHandMode).call(_context5, _assertThisInitialized(_this)),
-      stopHand: bind_default()(_context6 = _this._onMouseUpWithHandMode).call(_context6, _assertThisInitialized(_this)),
-      zoomChanged: bind_default()(_context7 = _this._changeScrollState).call(_context7, _assertThisInitialized(_this)),
-      keydown: bind_default()(_context8 = _this._startHandModeWithSpaceBar).call(_context8, _assertThisInitialized(_this)),
-      keyup: bind_default()(_context9 = _this._endHandModeWithSpaceBar).call(_context9, _assertThisInitialized(_this))
-    };
-
-    var canvas = _this.getCanvas();
-    /**
-     * Width:Height ratio (ex. width=1.5, height=1 -> aspectRatio=1.5)
-     * @private
-     */
-
-
-    _this.aspectRatio = canvas.width / canvas.height;
-    /**
-     * vertical scroll bar
-     * @type {fabric.Rect}
-     * @private
-     */
-
-    _this._verticalScroll = new fabric.fabric.Rect(DEFAULT_SCROLL_OPTION);
-    /**
-     * horizontal scroll bar
-     * @type {fabric.Rect}
-     * @private
-     */
-
-    _this._horizontalScroll = new fabric.fabric.Rect(DEFAULT_SCROLL_OPTION);
-    canvas.on(ZOOM_CHANGED, _this._listeners.zoomChanged);
-
-    _this.graphics.on(ADD_TEXT, bind_default()(_context10 = _this._startTextEditingHandler).call(_context10, _assertThisInitialized(_this)));
-
-    _this.graphics.on(TEXT_EDITING, bind_default()(_context11 = _this._startTextEditingHandler).call(_context11, _assertThisInitialized(_this)));
-
-    _this.graphics.on(OBJECT_MODIFIED, bind_default()(_context12 = _this._stopTextEditingHandler).call(_context12, _assertThisInitialized(_this)));
-
-    return _this;
-  }
-  /**
-   * Attach zoom keyboard events
-   */
-
-
-  _createClass(Zoom, [{
-    key: "attachKeyboardZoomEvents",
-    value: function attachKeyboardZoomEvents() {
-      fabric.fabric.util.addListener(document, KEY_DOWN, this._listeners.keydown);
-      fabric.fabric.util.addListener(document, KEY_UP, this._listeners.keyup);
-    }
-    /**
-     * Detach zoom keyboard events
-     */
-
-  }, {
-    key: "detachKeyboardZoomEvents",
-    value: function detachKeyboardZoomEvents() {
-      fabric.fabric.util.removeListener(document, KEY_DOWN, this._listeners.keydown);
-      fabric.fabric.util.removeListener(document, KEY_UP, this._listeners.keyup);
-    }
-    /**
-     * Handler when you started editing text
-     * @private
-     */
-
-  }, {
-    key: "_startTextEditingHandler",
-    value: function _startTextEditingHandler() {
-      this.isTextEditing = true;
-    }
-    /**
-     * Handler when you stopped editing text
-     * @private
-     */
-
-  }, {
-    key: "_stopTextEditingHandler",
-    value: function _stopTextEditingHandler() {
-      this.isTextEditing = false;
-    }
-    /**
-     * Handler who turns on hand mode when the space bar is down
-     * @param {KeyboardEvent} e - Event object
-     * @private
-     */
-
-  }, {
-    key: "_startHandModeWithSpaceBar",
-    value: function _startHandModeWithSpaceBar(e) {
-      if (this.withSpace || this.isTextEditing) {
-        return;
-      }
-
-      if (e.keyCode === keyCodes.SPACE) {
-        this.withSpace = true;
-        this.startHandMode();
-      }
-    }
-    /**
-     * Handler who turns off hand mode when space bar is up
-     * @param {KeyboardEvent} e - Event object
-     * @private
-     */
-
-  }, {
-    key: "_endHandModeWithSpaceBar",
-    value: function _endHandModeWithSpaceBar(e) {
-      if (e.keyCode === keyCodes.SPACE) {
-        this.withSpace = false;
-        this.endHandMode();
-      }
-    }
-    /**
-     * Start zoom-in mode
-     */
-
-  }, {
-    key: "startZoomInMode",
-    value: function startZoomInMode() {
-      if (this.zoomArea) {
-        return;
-      }
-
-      this.endHandMode();
-      this.zoomMode = zoomModes.ZOOM;
-      var canvas = this.getCanvas();
-
-      this._changeObjectsEventedState(false);
-
-      this.zoomArea = new fabric.fabric.Rect({
-        left: 0,
-        top: 0,
-        width: 0.5,
-        height: 0.5,
-        stroke: 'black',
-        strokeWidth: 1,
-        fill: 'transparent',
-        hoverCursor: 'zoom-in'
-      });
-      canvas.discardActiveObject();
-      canvas.add(this.zoomArea);
-      canvas.on('mouse:down', this._listeners.startZoom);
-      canvas.selection = false;
-      canvas.defaultCursor = 'zoom-in';
-    }
-    /**
-     * End zoom-in mode
-     */
-
-  }, {
-    key: "endZoomInMode",
-    value: function endZoomInMode() {
-      this.zoomMode = zoomModes.DEFAULT;
-      var canvas = this.getCanvas();
-      var _this$_listeners = this._listeners,
-          startZoom = _this$_listeners.startZoom,
-          moveZoom = _this$_listeners.moveZoom,
-          stopZoom = _this$_listeners.stopZoom;
-      canvas.selection = true;
-      canvas.defaultCursor = 'auto';
-      canvas.off({
-        'mouse:down': startZoom,
-        'mouse:move': moveZoom,
-        'mouse:up': stopZoom
-      });
-
-      this._changeObjectsEventedState(true);
-
-      canvas.remove(this.zoomArea);
-      this.zoomArea = null;
-    }
-    /**
-     * Start zoom drawing mode
-     */
-
-  }, {
-    key: "start",
-    value: function start() {
-      this.zoomArea = null;
-      this._startPoint = null;
-      this._startHandPoint = null;
-    }
-    /**
-     * Stop zoom drawing mode
-     */
-
-  }, {
-    key: "end",
-    value: function end() {
-      this.endZoomInMode();
-      this.endHandMode();
-    }
-    /**
-     * Start hand mode
-     */
-
-  }, {
-    key: "startHandMode",
-    value: function startHandMode() {
-      this.endZoomInMode();
-      this.zoomMode = zoomModes.HAND;
-      var canvas = this.getCanvas();
-
-      this._changeObjectsEventedState(false);
-
-      canvas.discardActiveObject();
-      canvas.off('mouse:down', this._listeners.startHand);
-      canvas.on('mouse:down', this._listeners.startHand);
-      canvas.selection = false;
-      canvas.defaultCursor = 'grab';
-      canvas.fire(HAND_STARTED);
-    }
-    /**
-     * Stop hand mode
-     */
-
-  }, {
-    key: "endHandMode",
-    value: function endHandMode() {
-      this.zoomMode = zoomModes.DEFAULT;
-      var canvas = this.getCanvas();
-
-      this._changeObjectsEventedState(true);
-
-      canvas.off('mouse:down', this._listeners.startHand);
-      canvas.selection = true;
-      canvas.defaultCursor = 'auto';
-      this._startHandPoint = null;
-      canvas.fire(HAND_STOPPED);
-    }
-    /**
-     * onMousedown handler in fabric canvas
-     * @param {{target: fabric.Object, e: MouseEvent}} fEvent - Fabric event
-     * @private
-     */
-
-  }, {
-    key: "_onMouseDownWithZoomMode",
-    value: function _onMouseDownWithZoomMode(_ref) {
-      var target = _ref.target,
-          e = _ref.e;
-
-      if (target) {
-        return;
-      }
-
-      var canvas = this.getCanvas();
-      canvas.selection = false;
-      this._startPoint = canvas.getPointer(e);
-      this.zoomArea.set({
-        width: 0,
-        height: 0
-      });
-      var _this$_listeners2 = this._listeners,
-          moveZoom = _this$_listeners2.moveZoom,
-          stopZoom = _this$_listeners2.stopZoom;
-      canvas.on({
-        'mouse:move': moveZoom,
-        'mouse:up': stopZoom
-      });
-    }
-    /**
-     * onMousemove handler in fabric canvas
-     * @param {{e: MouseEvent}} fEvent - Fabric event
-     * @private
-     */
-
-  }, {
-    key: "_onMouseMoveWithZoomMode",
-    value: function _onMouseMoveWithZoomMode(_ref2) {
-      var e = _ref2.e;
-      var canvas = this.getCanvas();
-      var pointer = canvas.getPointer(e);
-      var x = pointer.x,
-          y = pointer.y;
-      var zoomArea = this.zoomArea,
-          _startPoint = this._startPoint;
-      var deltaX = Math.abs(x - _startPoint.x);
-      var deltaY = Math.abs(y - _startPoint.y);
-
-      if (deltaX + deltaY > zoom_MOUSE_MOVE_THRESHOLD) {
-        canvas.remove(zoomArea);
-        zoomArea.set(this._calcRectDimensionFromPoint(x, y));
-        canvas.add(zoomArea);
-      }
-    }
-    /**
-     * Get rect dimension setting from Canvas-Mouse-Position(x, y)
-     * @param {number} x - Canvas-Mouse-Position x
-     * @param {number} y - Canvas-Mouse-Position Y
-     * @returns {{left: number, top: number, width: number, height: number}}
-     * @private
-     */
-
-  }, {
-    key: "_calcRectDimensionFromPoint",
-    value: function _calcRectDimensionFromPoint(x, y) {
-      var canvas = this.getCanvas();
-      var canvasWidth = canvas.getWidth();
-      var canvasHeight = canvas.getHeight();
-      var _this$_startPoint = this._startPoint,
-          startX = _this$_startPoint.x,
-          startY = _this$_startPoint.y;
-      var min = Math.min;
-      var left = min(startX, x);
-      var top = min(startY, y);
-      var width = clamp(x, startX, canvasWidth) - left; // (startX <= x(mouse) <= canvasWidth) - left
-
-      var height = clamp(y, startY, canvasHeight) - top; // (startY <= y(mouse) <= canvasHeight) - top
-
-      return {
-        left: left,
-        top: top,
-        width: width,
-        height: height
-      };
-    }
-    /**
-     * onMouseup handler in fabric canvas
-     * @private
-     */
-
-  }, {
-    key: "_onMouseUpWithZoomMode",
-    value: function _onMouseUpWithZoomMode() {
-      var zoomLevel = this.zoomLevel;
-      var zoomArea = this.zoomArea;
-      var _this$_listeners3 = this._listeners,
-          moveZoom = _this$_listeners3.moveZoom,
-          stopZoom = _this$_listeners3.stopZoom;
-      var canvas = this.getCanvas();
-
-      var center = this._getCenterPoint();
-
-      var x = center.x,
-          y = center.y;
-
-      if (!this._isMaxZoomLevel()) {
-        this._centerPoints.push({
-          x: x,
-          y: y,
-          prevZoomLevel: zoomLevel,
-          zoomLevel: zoomLevel + 1
-        });
-
-        zoomLevel += 1;
-        canvas.zoomToPoint({
-          x: x,
-          y: y
-        }, zoomLevel);
-
-        this._fireZoomChanged(canvas, zoomLevel);
-
-        this.zoomLevel = zoomLevel;
-      }
-
-      canvas.off({
-        'mouse:move': moveZoom,
-        'mouse:up': stopZoom
-      });
-      canvas.remove(zoomArea);
-      this._startPoint = null;
-    }
-    /**
-     * Get center point
-     * @returns {{x: number, y: number}}
-     * @private
-     */
-
-  }, {
-    key: "_getCenterPoint",
-    value: function _getCenterPoint() {
-      var _this$zoomArea = this.zoomArea,
-          left = _this$zoomArea.left,
-          top = _this$zoomArea.top,
-          width = _this$zoomArea.width,
-          height = _this$zoomArea.height;
-      var _this$_startPoint2 = this._startPoint,
-          x = _this$_startPoint2.x,
-          y = _this$_startPoint2.y;
-      var aspectRatio = this.aspectRatio;
-
-      if (width < zoom_MOUSE_MOVE_THRESHOLD && height < zoom_MOUSE_MOVE_THRESHOLD) {
-        return {
-          x: x,
-          y: y
-        };
-      }
-
-      return width > height ? {
-        x: left + aspectRatio * height / 2,
-        y: top + height / 2
-      } : {
-        x: left + width / 2,
-        y: top + width / aspectRatio / 2
-      };
-    }
-    /**
-     * Zoom the canvas
-     * @param {{x: number, y: number}} center - center of zoom
-     * @param {?number} zoomLevel - zoom level
-     */
-
-  }, {
-    key: "zoom",
-    value: function zoom(_ref3) {
-      var x = _ref3.x,
-          y = _ref3.y;
-      var zoomLevel = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.zoomLevel;
-      var canvas = this.getCanvas();
-      var centerPoints = this._centerPoints;
-
-      for (var i = centerPoints.length - 1; i >= 0; i -= 1) {
-        if (centerPoints[i].zoomLevel < zoomLevel) {
-          break;
-        }
-
-        var _centerPoints$pop = centerPoints.pop(),
-            prevX = _centerPoints$pop.x,
-            prevY = _centerPoints$pop.y,
-            prevZoomLevel = _centerPoints$pop.prevZoomLevel;
-
-        canvas.zoomToPoint({
-          x: prevX,
-          y: prevY
-        }, prevZoomLevel);
-        this.zoomLevel = prevZoomLevel;
-      }
-
-      canvas.zoomToPoint({
-        x: x,
-        y: y
-      }, zoomLevel);
-
-      if (!this._isDefaultZoomLevel(zoomLevel)) {
-        this._centerPoints.push({
-          x: x,
-          y: y,
-          zoomLevel: zoomLevel,
-          prevZoomLevel: this.zoomLevel
-        });
-      }
-
-      this.zoomLevel = zoomLevel;
-
-      this._fireZoomChanged(canvas, zoomLevel);
-    }
-    /**
-     * Zoom out one step
-     */
-
-  }, {
-    key: "zoomOut",
-    value: function zoomOut() {
-      var centerPoints = this._centerPoints;
-
-      if (!centerPoints.length) {
-        return;
-      }
-
-      var canvas = this.getCanvas();
-      var point = centerPoints.pop();
-      var x = point.x,
-          y = point.y,
-          prevZoomLevel = point.prevZoomLevel;
-
-      if (this._isDefaultZoomLevel(prevZoomLevel)) {
-        canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
-      } else {
-        canvas.zoomToPoint({
-          x: x,
-          y: y
-        }, prevZoomLevel);
-      }
-
-      this.zoomLevel = prevZoomLevel;
-
-      this._fireZoomChanged(canvas, this.zoomLevel);
-    }
-    /**
-     * Zoom reset
-     */
-
-  }, {
-    key: "resetZoom",
-    value: function resetZoom() {
-      var canvas = this.getCanvas();
-      canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
-      this.zoomLevel = DEFAULT_ZOOM_LEVEL;
-      this._centerPoints = [];
-
-      this._fireZoomChanged(canvas, this.zoomLevel);
-    }
-    /**
-     * Whether zoom level is max (5.0)
-     * @returns {boolean}
-     * @private
-     */
-
-  }, {
-    key: "_isMaxZoomLevel",
-    value: function _isMaxZoomLevel() {
-      return this.zoomLevel >= 5.0;
-    }
-    /**
-     * Move point of zoom
-     * @param {{x: number, y: number}} delta - move amount
-     * @private
-     */
-
-  }, {
-    key: "_movePointOfZoom",
-    value: function _movePointOfZoom(_ref4) {
-      var deltaX = _ref4.x,
-          deltaY = _ref4.y;
-      var centerPoints = this._centerPoints;
-
-      if (!centerPoints.length) {
-        return;
-      }
-
-      var canvas = this.getCanvas();
-      var zoomLevel = this.zoomLevel;
-      var point = centerPoints.pop();
-      var originX = point.x,
-          originY = point.y,
-          prevZoomLevel = point.prevZoomLevel;
-      var x = originX - deltaX;
-      var y = originY - deltaY;
-      canvas.zoomToPoint({
-        x: originX,
-        y: originY
-      }, prevZoomLevel);
-      canvas.zoomToPoint({
-        x: x,
-        y: y
-      }, zoomLevel);
-      centerPoints.push({
-        x: x,
-        y: y,
-        prevZoomLevel: prevZoomLevel,
-        zoomLevel: zoomLevel
-      });
-
-      this._fireZoomChanged(canvas, zoomLevel);
-    }
-    /**
-     * onMouseDown handler in fabric canvas
-     * @param {{target: fabric.Object, e: MouseEvent}} fEvent - Fabric event
-     * @private
-     */
-
-  }, {
-    key: "_onMouseDownWithHandMode",
-    value: function _onMouseDownWithHandMode(_ref5) {
-      var target = _ref5.target,
-          e = _ref5.e;
-
-      if (target) {
-        return;
-      }
-
-      var canvas = this.getCanvas();
-
-      if (this.zoomLevel <= DEFAULT_ZOOM_LEVEL) {
-        return;
-      }
-
-      canvas.selection = false;
-      this._startHandPoint = canvas.getPointer(e);
-      var _this$_listeners4 = this._listeners,
-          moveHand = _this$_listeners4.moveHand,
-          stopHand = _this$_listeners4.stopHand;
-      canvas.on({
-        'mouse:move': moveHand,
-        'mouse:up': stopHand
-      });
-    }
-    /**
-     * onMouseMove handler in fabric canvas
-     * @param {{e: MouseEvent}} fEvent - Fabric event
-     * @private
-     */
-
-  }, {
-    key: "_onMouseMoveWithHandMode",
-    value: function _onMouseMoveWithHandMode(_ref6) {
-      var e = _ref6.e;
-      var canvas = this.getCanvas();
-
-      var _canvas$getPointer = canvas.getPointer(e),
-          x = _canvas$getPointer.x,
-          y = _canvas$getPointer.y;
-
-      var deltaX = x - this._startHandPoint.x;
-      var deltaY = y - this._startHandPoint.y;
-
-      this._movePointOfZoom({
-        x: deltaX,
-        y: deltaY
-      });
-    }
-    /**
-     * onMouseUp handler in fabric canvas
-     * @private
-     */
-
-  }, {
-    key: "_onMouseUpWithHandMode",
-    value: function _onMouseUpWithHandMode() {
-      var canvas = this.getCanvas();
-      var _this$_listeners5 = this._listeners,
-          moveHand = _this$_listeners5.moveHand,
-          stopHand = _this$_listeners5.stopHand;
-      canvas.off({
-        'mouse:move': moveHand,
-        'mouse:up': stopHand
-      });
-      this._startHandPoint = null;
-    }
-    /**
-     * onChangeZoom handler in fabric canvas
-     * @private
-     */
-
-  }, {
-    key: "_changeScrollState",
-    value: function _changeScrollState(_ref7) {
-      var viewport = _ref7.viewport,
-          zoomLevel = _ref7.zoomLevel;
-      var canvas = this.getCanvas();
-      canvas.remove(this._verticalScroll);
-      canvas.remove(this._horizontalScroll);
-
-      if (this._isDefaultZoomLevel(zoomLevel)) {
-        return;
-      }
-
-      var canvasWidth = canvas.width;
-      var canvasHeight = canvas.height;
-      var tl = viewport.tl,
-          tr = viewport.tr,
-          bl = viewport.bl;
-      var viewportWidth = tr.x - tl.x;
-      var viewportHeight = bl.y - tl.y;
-      var horizontalScrollWidth = viewportWidth * viewportWidth / canvasWidth;
-      var horizontalScrollHeight = viewportHeight * DEFAULT_HORIZONTAL_SCROLL_RATIO.SIZE;
-      var horizontalScrollLeft = clamp(tl.x + tl.x / canvasWidth * viewportWidth, tl.x, tr.x - horizontalScrollWidth);
-      var horizontalScrollMargin = viewportHeight * DEFAULT_HORIZONTAL_SCROLL_RATIO.MARGIN;
-      var horizontalScrollBorderRadius = viewportHeight * DEFAULT_HORIZONTAL_SCROLL_RATIO.BORDER_RADIUS;
-
-      this._horizontalScroll.set({
-        left: horizontalScrollLeft,
-        top: bl.y - horizontalScrollHeight - horizontalScrollMargin,
-        width: horizontalScrollWidth,
-        height: horizontalScrollHeight,
-        rx: horizontalScrollBorderRadius,
-        ry: horizontalScrollBorderRadius
-      });
-
-      var verticalScrollWidth = viewportWidth * DEFAULT_VERTICAL_SCROLL_RATIO.SIZE;
-      var verticalScrollHeight = viewportHeight * viewportHeight / canvasHeight;
-      var verticalScrollTop = clamp(tl.y + tl.y / canvasHeight * viewportHeight, tr.y, bl.y - verticalScrollHeight);
-      var verticalScrollMargin = viewportWidth * DEFAULT_VERTICAL_SCROLL_RATIO.MARGIN;
-      var verticalScrollBorderRadius = viewportWidth * DEFAULT_VERTICAL_SCROLL_RATIO.BORDER_RADIUS;
-
-      this._verticalScroll.set({
-        left: tr.x - verticalScrollWidth - verticalScrollMargin,
-        top: verticalScrollTop,
-        width: verticalScrollWidth,
-        height: verticalScrollHeight,
-        rx: verticalScrollBorderRadius,
-        ry: verticalScrollBorderRadius
-      });
-
-      this._addScrollBar();
-    }
-    /**
-     * Change objects 'evented' state
-     * @param {boolean} [evented=true] - objects 'evented' state
-     */
-
-  }, {
-    key: "_changeObjectsEventedState",
-    value: function _changeObjectsEventedState() {
-      var evented = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-      var canvas = this.getCanvas();
-      canvas.forEachObject(function (obj) {
-        // {@link http://fabricjs.com/docs/fabric.Object.html#evented}
-        obj.evented = evented;
-      });
-    }
-    /**
-     * Add scroll bar and set remove timer
-     */
-
-  }, {
-    key: "_addScrollBar",
-    value: function _addScrollBar() {
-      var _this2 = this;
-
-      var canvas = this.getCanvas();
-      canvas.add(this._horizontalScroll);
-      canvas.add(this._verticalScroll);
-
-      if (this.scrollBarTid) {
-        clearTimeout(this.scrollBarTid);
-      }
-
-      this.scrollBarTid = set_timeout_default()(function () {
-        canvas.remove(_this2._horizontalScroll);
-        canvas.remove(_this2._verticalScroll);
-      }, 3000);
-    }
-    /**
-     * Check zoom level is default zoom level (1.0)
-     * @param {number} zoomLevel - zoom level
-     * @returns {boolean} - whether zoom level is 1.0
-     */
-
-  }, {
-    key: "_isDefaultZoomLevel",
-    value: function _isDefaultZoomLevel(zoomLevel) {
-      return zoomLevel === DEFAULT_ZOOM_LEVEL;
-    }
-    /**
-     * Fire 'zoomChanged' event
-     * @param {fabric.Canvas} canvas - fabric canvas
-     * @param {number} zoomLevel - 'zoomChanged' event params
-     */
-
-  }, {
-    key: "_fireZoomChanged",
-    value: function _fireZoomChanged(canvas, zoomLevel) {
-      canvas.fire(ZOOM_CHANGED, {
-        viewport: canvas.calcViewportBoundaries(),
-        zoomLevel: zoomLevel
-      });
-    }
-    /**
-     * Get zoom mode
-     */
-
-  }, {
-    key: "mode",
-    get: function get() {
-      return this.zoomMode;
-    }
-  }]);
-
-  return Zoom;
-}(component);
-
-/* harmony default export */ var zoom = (Zoom);
 ;// CONCATENATED MODULE: ./src/js/interface/drawingMode.js
 
 
@@ -56486,67 +55733,6 @@ var IconDrawingMode = /*#__PURE__*/function (_DrawingMode) {
 }(drawingMode);
 
 /* harmony default export */ var drawingMode_icon = (IconDrawingMode);
-;// CONCATENATED MODULE: ./src/js/drawingMode/zoom.js
-
-
-
-
-
-
-
-function drawingMode_zoom_createSuper(Derived) { var hasNativeReflectConstruct = drawingMode_zoom_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = construct_default()(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function drawingMode_zoom_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !(construct_default())) return false; if ((construct_default()).sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-/**
- * ZoomDrawingMode class
- * @class
- * @ignore
- */
-
-var ZoomDrawingMode = /*#__PURE__*/function (_DrawingMode) {
-  _inherits(ZoomDrawingMode, _DrawingMode);
-
-  var _super = drawingMode_zoom_createSuper(ZoomDrawingMode);
-
-  function ZoomDrawingMode() {
-    _classCallCheck(this, ZoomDrawingMode);
-
-    return _super.call(this, drawingModes.ZOOM);
-  }
-  /**
-   * start this drawing mode
-   * @param {Graphics} graphics - Graphics instance
-   * @override
-   */
-
-
-  _createClass(ZoomDrawingMode, [{
-    key: "start",
-    value: function start(graphics) {
-      var zoom = graphics.getComponent(componentNames.ZOOM);
-      zoom.start();
-    }
-    /**
-     * stop this drawing mode
-     * @param {Graphics} graphics - Graphics instance
-     * @override
-     */
-
-  }, {
-    key: "end",
-    value: function end(graphics) {
-      var zoom = graphics.getComponent(componentNames.ZOOM);
-      zoom.end();
-    }
-  }]);
-
-  return ZoomDrawingMode;
-}(drawingMode);
-
-/* harmony default export */ var drawingMode_zoom = (ZoomDrawingMode);
 ;// CONCATENATED MODULE: ./src/js/helper/selectionModifyHelper.js
 
 
@@ -56886,8 +56072,6 @@ var ResizeDrawingMode = /*#__PURE__*/function (_DrawingMode) {
 
 
 
-
-
 var DEFAULT_CSS_MAX_WIDTH = 1000;
 var DEFAULT_CSS_MAX_HEIGHT = 800;
 var EXTRA_PX_FOR_PASTE = 10;
@@ -57017,8 +56201,6 @@ var Graphics = /*#__PURE__*/function () {
     this._createComponents();
 
     this._attachCanvasEvents();
-
-    this._attachZoomEvents();
   }
   /**
    * Destroy canvas element
@@ -57033,28 +56215,6 @@ var Graphics = /*#__PURE__*/function () {
       this._canvas.clear();
 
       wrapperEl.parentNode.removeChild(wrapperEl);
-
-      this._detachZoomEvents();
-    }
-    /**
-     * Attach zoom events
-     */
-
-  }, {
-    key: "_attachZoomEvents",
-    value: function _attachZoomEvents() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.attachKeyboardZoomEvents();
-    }
-    /**
-     * Detach zoom events
-     */
-
-  }, {
-    key: "_detachZoomEvents",
-    value: function _detachZoomEvents() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.detachKeyboardZoomEvents();
     }
     /**
      * Deactivates all objects on canvas
@@ -57373,94 +56533,6 @@ var Graphics = /*#__PURE__*/function () {
       }
 
       this._drawingMode = drawingModes.NORMAL;
-    }
-    /**
-     * Change zoom of canvas
-     * @param {{x: number, y: number}} center - center of zoom
-     * @param {number} zoomLevel - zoom level
-     */
-
-  }, {
-    key: "zoom",
-    value: function zoom(_ref2, zoomLevel) {
-      var x = _ref2.x,
-          y = _ref2.y;
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.zoom({
-        x: x,
-        y: y
-      }, zoomLevel);
-    }
-    /**
-     * Get zoom mode
-     * @returns {string}
-     */
-
-  }, {
-    key: "getZoomMode",
-    value: function getZoomMode() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      return zoom.mode;
-    }
-    /**
-     * Start zoom-in mode
-     */
-
-  }, {
-    key: "startZoomInMode",
-    value: function startZoomInMode() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.startZoomInMode();
-    }
-    /**
-     * Stop zoom-in mode
-     */
-
-  }, {
-    key: "endZoomInMode",
-    value: function endZoomInMode() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.endZoomInMode();
-    }
-    /**
-     * Zoom out one step
-     */
-
-  }, {
-    key: "zoomOut",
-    value: function zoomOut() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.zoomOut();
-    }
-    /**
-     * Start hand mode
-     */
-
-  }, {
-    key: "startHandMode",
-    value: function startHandMode() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.startHandMode();
-    }
-    /**
-     * Stop hand mode
-     */
-
-  }, {
-    key: "endHandMode",
-    value: function endHandMode() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.endHandMode();
-    }
-    /**
-     * Zoom reset
-     */
-
-  }, {
-    key: "resetZoom",
-    value: function resetZoom() {
-      var zoom = this.getComponent(componentNames.ZOOM);
-      zoom.resetZoom();
     }
     /**
      * To data url from canvas
@@ -58002,8 +57074,6 @@ var Graphics = /*#__PURE__*/function () {
 
       this._register(this._drawingModeMap, new drawingMode_icon());
 
-      this._register(this._drawingModeMap, new drawingMode_zoom());
-
       this._register(this._drawingModeMap, new drawingMode_resize());
     }
     /**
@@ -58033,8 +57103,6 @@ var Graphics = /*#__PURE__*/function () {
       this._register(this._componentMap, new component_filter(this));
 
       this._register(this._componentMap, new shape_Shape(this));
-
-      this._register(this._componentMap, new zoom(this));
 
       this._register(this._componentMap, new component_resize(this));
     }
@@ -58652,10 +57720,10 @@ var MOUSE_DOWN = eventNames.MOUSE_DOWN,
     OBJECT_ACTIVATED = eventNames.OBJECT_ACTIVATED,
     OBJECT_ROTATED = eventNames.OBJECT_ROTATED,
     OBJECT_ADDED = eventNames.OBJECT_ADDED,
-    imageEditor_OBJECT_MODIFIED = eventNames.OBJECT_MODIFIED,
-    imageEditor_ADD_TEXT = eventNames.ADD_TEXT,
+    OBJECT_MODIFIED = eventNames.OBJECT_MODIFIED,
+    ADD_TEXT = eventNames.ADD_TEXT,
     ADD_OBJECT = eventNames.ADD_OBJECT,
-    imageEditor_TEXT_EDITING = eventNames.TEXT_EDITING,
+    TEXT_EDITING = eventNames.TEXT_EDITING,
     TEXT_CHANGED = eventNames.TEXT_CHANGED,
     ICON_CREATE_RESIZE = eventNames.ICON_CREATE_RESIZE,
     ICON_CREATE_END = eventNames.ICON_CREATE_END,
@@ -59003,7 +58071,7 @@ var ImageEditor = /*#__PURE__*/function () {
     value: function _attachGraphicsEvents() {
       var _this$_graphics$on;
 
-      this._graphics.on((_this$_graphics$on = {}, _defineProperty(_this$_graphics$on, MOUSE_DOWN, this._handlers.mousedown), _defineProperty(_this$_graphics$on, OBJECT_MOVED, this._handlers.objectMoved), _defineProperty(_this$_graphics$on, OBJECT_SCALED, this._handlers.objectScaled), _defineProperty(_this$_graphics$on, OBJECT_ROTATED, this._handlers.objectRotated), _defineProperty(_this$_graphics$on, OBJECT_ACTIVATED, this._handlers.objectActivated), _defineProperty(_this$_graphics$on, OBJECT_ADDED, this._handlers.objectAdded), _defineProperty(_this$_graphics$on, imageEditor_OBJECT_MODIFIED, this._handlers.objectModified), _defineProperty(_this$_graphics$on, imageEditor_ADD_TEXT, this._handlers.addText), _defineProperty(_this$_graphics$on, ADD_OBJECT, this._handlers.addObject), _defineProperty(_this$_graphics$on, imageEditor_TEXT_EDITING, this._handlers.textEditing), _defineProperty(_this$_graphics$on, TEXT_CHANGED, this._handlers.textChanged), _defineProperty(_this$_graphics$on, ICON_CREATE_RESIZE, this._handlers.iconCreateResize), _defineProperty(_this$_graphics$on, ICON_CREATE_END, this._handlers.iconCreateEnd), _defineProperty(_this$_graphics$on, SELECTION_CLEARED, this._handlers.selectionCleared), _defineProperty(_this$_graphics$on, SELECTION_CREATED, this._handlers.selectionCreated), _this$_graphics$on));
+      this._graphics.on((_this$_graphics$on = {}, _defineProperty(_this$_graphics$on, MOUSE_DOWN, this._handlers.mousedown), _defineProperty(_this$_graphics$on, OBJECT_MOVED, this._handlers.objectMoved), _defineProperty(_this$_graphics$on, OBJECT_SCALED, this._handlers.objectScaled), _defineProperty(_this$_graphics$on, OBJECT_ROTATED, this._handlers.objectRotated), _defineProperty(_this$_graphics$on, OBJECT_ACTIVATED, this._handlers.objectActivated), _defineProperty(_this$_graphics$on, OBJECT_ADDED, this._handlers.objectAdded), _defineProperty(_this$_graphics$on, OBJECT_MODIFIED, this._handlers.objectModified), _defineProperty(_this$_graphics$on, ADD_TEXT, this._handlers.addText), _defineProperty(_this$_graphics$on, ADD_OBJECT, this._handlers.addObject), _defineProperty(_this$_graphics$on, TEXT_EDITING, this._handlers.textEditing), _defineProperty(_this$_graphics$on, TEXT_CHANGED, this._handlers.textChanged), _defineProperty(_this$_graphics$on, ICON_CREATE_RESIZE, this._handlers.iconCreateResize), _defineProperty(_this$_graphics$on, ICON_CREATE_END, this._handlers.iconCreateEnd), _defineProperty(_this$_graphics$on, SELECTION_CLEARED, this._handlers.selectionCleared), _defineProperty(_this$_graphics$on, SELECTION_CREATED, this._handlers.selectionCreated), _this$_graphics$on));
     }
     /**
      * Attach dom events
@@ -59415,34 +58483,6 @@ var ImageEditor = /*#__PURE__*/function () {
       }
 
       return promise;
-    }
-    /**
-     * Zoom
-     * @param {number} x - x axis of center point for zoom
-     * @param {number} y - y axis of center point for zoom
-     * @param {number} zoomLevel - level of zoom(1.0 ~ 5.0)
-     */
-
-  }, {
-    key: "zoom",
-    value: function zoom(_ref2) {
-      var x = _ref2.x,
-          y = _ref2.y,
-          zoomLevel = _ref2.zoomLevel;
-
-      this._graphics.zoom({
-        x: x,
-        y: y
-      }, zoomLevel);
-    }
-    /**
-     * Reset zoom. Change zoom level to 1.0
-     */
-
-  }, {
-    key: "resetZoom",
-    value: function resetZoom() {
-      this._graphics.resetZoom();
     }
     /**
      * Load image from file
