@@ -17,7 +17,6 @@ import Mask from '@/ui/mask';
 import Icon from '@/ui/icon';
 import Draw from '@/ui/draw';
 import Filter from '@/ui/filter';
-import History from '@/ui/history';
 import Locale from '@/ui/locale/locale';
 
 const SUB_UI_COMPONENT = {
@@ -375,11 +374,6 @@ class Ui {
     };
 
     this._addHelpMenus();
-
-    this._historyMenu = new History(this._buttonElements[HISTORY_MENU], {
-      locale: this._locale,
-      makeSvgIcon: this.theme.makeMenSvgIconSet.bind(this.theme),
-    });
   }
 
   /**

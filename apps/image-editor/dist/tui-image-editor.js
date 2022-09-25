@@ -30876,13 +30876,6 @@ module.exports = __webpack_require__(3739);
 
 /***/ }),
 
-/***/ 4383:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-module.exports = __webpack_require__(172);
-
-/***/ }),
-
 /***/ 6065:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
@@ -31527,17 +31520,6 @@ module.exports = function (it) {
   return typeof it === 'string' || it === StringPrototype
     || (it instanceof String && own === StringPrototype.trim) ? trim : own;
 };
-
-
-/***/ }),
-
-/***/ 6285:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-__webpack_require__(2666);
-var path = __webpack_require__(7545);
-
-module.exports = path.Number.parseInt;
 
 
 /***/ }),
@@ -35581,22 +35563,6 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
-/***/ 2666:
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-var $ = __webpack_require__(3085);
-var parseInt = __webpack_require__(2558);
-
-// `Number.parseInt` method
-// https://tc39.es/ecma262/#sec-number.parseint
-// eslint-disable-next-line es/no-number-parseint -- required for testing
-$({ target: 'Number', stat: true, forced: Number.parseInt != parseInt }, {
-  parseInt: parseInt
-});
-
-
-/***/ }),
-
 /***/ 3113:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
@@ -38579,16 +38545,6 @@ module.exports = parent;
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var parent = __webpack_require__(6813);
-
-module.exports = parent;
-
-
-/***/ }),
-
-/***/ 172:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var parent = __webpack_require__(6285);
 
 module.exports = parent;
 
@@ -46932,426 +46888,6 @@ var Filter = /*#__PURE__*/function (_Submenu) {
 }(submenuBase);
 
 /* harmony default export */ var ui_filter = (Filter);
-// EXTERNAL MODULE: ../../node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-int.js
-var number_parse_int = __webpack_require__(4383);
-var number_parse_int_default = /*#__PURE__*/__webpack_require__.n(number_parse_int);
-;// CONCATENATED MODULE: ./src/js/ui/panelMenu.js
-
-
-
-
-/**
- * Menu Panel Class
- * @class
- * @ignore
- */
-var Panel = /*#__PURE__*/function () {
-  /**
-   * @param {HTMLElement} menuElement - menu dom element
-   * @param {Object} options - menu options
-   *   @param {string} options.name - name of panel menu
-   */
-  function Panel(menuElement, _ref) {
-    var name = _ref.name;
-
-    _classCallCheck(this, Panel);
-
-    this.name = name;
-    this.items = [];
-    this.panelElement = this._makePanelElement();
-    this.listElement = this._makeListElement();
-    this.panelElement.appendChild(this.listElement);
-    menuElement.appendChild(this.panelElement);
-  }
-  /**
-   * Make Panel element
-   * @returns {HTMLElement}
-   */
-
-
-  _createClass(Panel, [{
-    key: "_makePanelElement",
-    value: function _makePanelElement() {
-      var panel = document.createElement('div');
-      panel.className = "tie-panel-".concat(this.name);
-      return panel;
-    }
-    /**
-     * Make list element
-     * @returns {HTMLElement} list element
-     * @private
-     */
-
-  }, {
-    key: "_makeListElement",
-    value: function _makeListElement() {
-      var list = document.createElement('ol');
-      list.className = "".concat(this.name, "-list");
-      return list;
-    }
-    /**
-     * Make list item element
-     * @param {string} html - history list item html
-     * @returns {HTMLElement} list item element
-     */
-
-  }, {
-    key: "makeListItemElement",
-    value: function makeListItemElement(html) {
-      var listItem = document.createElement('li');
-      listItem.innerHTML = html;
-      listItem.className = "".concat(this.name, "-item");
-      listItem.setAttribute('data-index', this.items.length);
-      return listItem;
-    }
-    /**
-     * Push list item element
-     * @param {HTMLElement} item - list item element to add to the list
-     */
-
-  }, {
-    key: "pushListItemElement",
-    value: function pushListItemElement(item) {
-      this.listElement.appendChild(item);
-      this.listElement.scrollTop += item.offsetHeight;
-      this.items.push(item);
-    }
-    /**
-     * Delete list item element
-     * @param {number} start - start index to delete
-     * @param {number} end - end index to delete
-     */
-
-  }, {
-    key: "deleteListItemElement",
-    value: function deleteListItemElement(start, end) {
-      var items = this.items;
-
-      for (var i = start; i < end; i += 1) {
-        this.listElement.removeChild(items[i]);
-      }
-
-      splice_default()(items).call(items, start, end - start + 1);
-    }
-    /**
-     * Get list's length
-     * @returns {number}
-     */
-
-  }, {
-    key: "getListLength",
-    value: function getListLength() {
-      return this.items.length;
-    }
-    /**
-     * Add class name of item
-     * @param {number} index - index of item
-     * @param {string} className - class name to add
-     */
-
-  }, {
-    key: "addClass",
-    value: function addClass(index, className) {
-      if (this.items[index]) {
-        this.items[index].classList.add(className);
-      }
-    }
-    /**
-     * Remove class name of item
-     * @param {number} index - index of item
-     * @param {string} className - class name to remove
-     */
-
-  }, {
-    key: "removeClass",
-    value: function removeClass(index, className) {
-      if (this.items[index]) {
-        this.items[index].classList.remove(className);
-      }
-    }
-    /**
-     * Toggle class name of item
-     * @param {number} index - index of item
-     * @param {string} className - class name to remove
-     */
-
-  }, {
-    key: "toggleClass",
-    value: function toggleClass(index, className) {
-      if (this.items[index]) {
-        this.items[index].classList.toggle(className);
-      }
-    }
-  }]);
-
-  return Panel;
-}();
-
-/* harmony default export */ var panelMenu = (Panel);
-;// CONCATENATED MODULE: ./src/js/ui/template/submenu/history.js
-
-
-/**
- * @param {Object} submenuInfo - submenu info for make template
- *   @param {Locale} locale - Translate text
- *   @param {Function} makeSvgIcon - svg icon generator
- *   @param {string} name - history name
- *   @param {string} detail - history detail information
- * @returns {string}
- */
-/* harmony default export */ var submenu_history = (function (_ref) {
-  var _context, _context2, _context3;
-
-  var locale = _ref.locale,
-      makeSvgIcon = _ref.makeSvgIcon,
-      name = _ref.name,
-      detail = _ref.detail;
-  return concat_default()(_context = concat_default()(_context2 = concat_default()(_context3 = "\n    <div class=\"tui-image-editor-history-item history\">\n        <div class=\"history-item-icon\">\n            ".concat(makeSvgIcon(['normal', 'active'], "history-".concat(name.toLowerCase()), true), "\n        </div>\n        <span>\n            ")).call(_context3, locale.localize(name), "\n            ")).call(_context2, detail ? "(".concat(locale.localize(detail), ")") : '', "\n        </span>\n        <div class=\"history-item-checkbox\">\n            ")).call(_context, makeSvgIcon(['normal'], 'history-check', true), "\n        </div>\n    </div>\n");
-});
-;// CONCATENATED MODULE: ./src/js/ui/history.js
-
-
-
-
-
-
-
-
-function history_createSuper(Derived) { var hasNativeReflectConstruct = history_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = construct_default()(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function history_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !(construct_default())) return false; if ((construct_default()).sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var historyClassName = 'history-item';
-var selectedClassName = 'selected-item';
-var disabledClassName = 'disabled-item';
-/**
- * History ui class
- * @class
- * @ignore
- */
-
-var History = /*#__PURE__*/function (_Panel) {
-  _inherits(History, _Panel);
-
-  var _super = history_createSuper(History);
-
-  function History(menuElement, _ref) {
-    var _this;
-
-    var locale = _ref.locale,
-        makeSvgIcon = _ref.makeSvgIcon;
-
-    _classCallCheck(this, History);
-
-    _this = _super.call(this, menuElement, {
-      name: 'history'
-    });
-    menuElement.classList.add('enabled');
-    _this.locale = locale;
-    _this.makeSvgIcon = makeSvgIcon;
-    _this._eventHandler = {};
-    _this._historyIndex = _this.getListLength();
-    return _this;
-  }
-  /**
-   * Add history
-   * @param {string} name - name of history
-   * @param {?string} detail - detail information of history
-   */
-
-
-  _createClass(History, [{
-    key: "add",
-    value: function add(_ref2) {
-      var name = _ref2.name,
-          detail = _ref2.detail;
-
-      if (this._hasDisabledItem()) {
-        this.deleteListItemElement(this._historyIndex + 1, this.getListLength());
-      }
-
-      var html = submenu_history({
-        locale: this.locale,
-        makeSvgIcon: this.makeSvgIcon,
-        name: name,
-        detail: detail
-      });
-      var item = this.makeListItemElement(html);
-      this.pushListItemElement(item);
-      this._historyIndex = this.getListLength() - 1;
-
-      this._selectItem(this._historyIndex);
-    }
-    /**
-     * Init history
-     */
-
-  }, {
-    key: "init",
-    value: function init() {
-      this.deleteListItemElement(1, this.getListLength());
-      this._historyIndex = 0;
-
-      this._selectItem(this._historyIndex);
-    }
-    /**
-     * Clear history
-     */
-
-  }, {
-    key: "clear",
-    value: function clear() {
-      this.deleteListItemElement(0, this.getListLength());
-      this._historyIndex = -1;
-    }
-    /**
-     * Select previous history of current selected history
-     */
-
-  }, {
-    key: "prev",
-    value: function prev() {
-      this._historyIndex -= 1;
-
-      this._selectItem(this._historyIndex);
-    }
-    /**
-     * Select next history of current selected history
-     */
-
-  }, {
-    key: "next",
-    value: function next() {
-      this._historyIndex += 1;
-
-      this._selectItem(this._historyIndex);
-    }
-    /**
-     * Whether history menu has disabled item
-     * @returns {boolean}
-     */
-
-  }, {
-    key: "_hasDisabledItem",
-    value: function _hasDisabledItem() {
-      return this.getListLength() - 1 > this._historyIndex;
-    }
-    /**
-     * Add history menu event
-     * @private
-     */
-
-  }, {
-    key: "_addHistoryEventListener",
-    value: function _addHistoryEventListener() {
-      var _this2 = this;
-
-      this._eventHandler.history = function (event) {
-        return _this2._clickHistoryItem(event);
-      };
-
-      this.listElement.addEventListener('click', this._eventHandler.history);
-    }
-    /**
-     * Remove history menu event
-     * @private
-     */
-
-  }, {
-    key: "_removeHistoryEventListener",
-    value: function _removeHistoryEventListener() {
-      this.listElement.removeEventListener('click', this._eventHandler.history);
-    }
-    /**
-     * onClick history menu event listener
-     * @param {object} event - event object
-     * @private
-     */
-
-  }, {
-    key: "_clickHistoryItem",
-    value: function _clickHistoryItem(event) {
-      var target = event.target;
-      var item = target.closest(".".concat(historyClassName));
-
-      if (!item) {
-        return;
-      }
-
-      var index = number_parse_int_default()(item.getAttribute('data-index'), 10);
-
-      if (index !== this._historyIndex) {
-        var count = Math.abs(index - this._historyIndex);
-
-        if (index < this._historyIndex) {
-          this._actions.undo(count);
-        } else {
-          this._actions.redo(count);
-        }
-      }
-    }
-    /**
-     * Change item's state to selected state
-     * @param {number} index - index of selected item
-     */
-
-  }, {
-    key: "_selectItem",
-    value: function _selectItem(index) {
-      for (var i = 0; i < this.getListLength(); i += 1) {
-        this.removeClass(i, selectedClassName);
-        this.removeClass(i, disabledClassName);
-
-        if (i > index) {
-          this.addClass(i, disabledClassName);
-        }
-      }
-
-      this.addClass(index, selectedClassName);
-    }
-    /**
-     * Destroys the instance.
-     */
-
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      this.removeEvent();
-      assignmentForDestroy(this);
-    }
-    /**
-     * Add event for history
-     * @param {Object} actions - actions for crop
-     *   @param {Function} actions.undo - undo action
-     *   @param {Function} actions.redo - redo action
-     */
-
-  }, {
-    key: "addEvent",
-    value: function addEvent(actions) {
-      this._actions = actions;
-
-      this._addHistoryEventListener();
-    }
-    /**
-     * Remove event
-     * @private
-     */
-
-  }, {
-    key: "removeEvent",
-    value: function removeEvent() {
-      this._removeHistoryEventListener();
-    }
-  }]);
-
-  return History;
-}(panelMenu);
-
-/* harmony default export */ var ui_history = (History);
 ;// CONCATENATED MODULE: ./src/js/ui/locale/locale.js
 
 
@@ -47384,7 +46920,6 @@ var Locale = /*#__PURE__*/function () {
 
 /* harmony default export */ var locale = (Locale);
 ;// CONCATENATED MODULE: ./src/js/ui.js
-
 
 
 
@@ -47749,8 +47284,6 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_makeUiElement",
     value: function _makeUiElement(element) {
-      var _context6;
-
       var selectedElement;
 
       if (element.nodeType) {
@@ -47792,11 +47325,6 @@ var Ui = /*#__PURE__*/function () {
       };
 
       this._addHelpMenus();
-
-      this._historyMenu = new ui_history(this._buttonElements[HISTORY_MENU], {
-        locale: this._locale,
-        makeSvgIcon: bind_default()(_context6 = this.theme.makeMenSvgIconSet).call(_context6, this.theme)
-      });
     }
     /**
      * Add help menu
@@ -47845,7 +47373,7 @@ var Ui = /*#__PURE__*/function () {
   }, {
     key: "_makeMenuElement",
     value: function _makeMenuElement(menuName) {
-      var _context7, _context8;
+      var _context6, _context7;
 
       var useIconTypes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ['normal', 'active', 'hover'];
       var menuType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'normal';
@@ -47854,7 +47382,7 @@ var Ui = /*#__PURE__*/function () {
 
       this._addTooltipAttribute(btnElement, menuName);
 
-      btnElement.className = concat_default()(_context7 = concat_default()(_context8 = "tie-btn-".concat(menuName, " ")).call(_context8, cls('item'), " ")).call(_context7, menuType);
+      btnElement.className = concat_default()(_context6 = concat_default()(_context7 = "tie-btn-".concat(menuName, " ")).call(_context7, cls('item'), " ")).call(_context6, menuType);
       btnElement.innerHTML = menuItemHtml;
 
       if (menuType === 'normal') {
