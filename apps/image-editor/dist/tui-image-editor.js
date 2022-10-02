@@ -47318,6 +47318,8 @@ var Ui = /*#__PURE__*/function () {
 
     this._makeSubMenu();
 
+    this._addHelpMenus();
+
     this._attachHistoryEvent();
   }
   /**
@@ -47567,9 +47569,6 @@ var Ui = /*#__PURE__*/function () {
         download: this._selectedElement.querySelectorAll('.tui-image-editor-download-btn'),
         load: this._selectedElement.querySelectorAll('.tui-image-editor-load-btn')
       };
-
-      this._addHelpMenus();
-
       this._historyMenu = new ui_history({
         locale: this._locale,
         makeSvgIcon: bind_default()(_context5 = this.theme.makeMenSvgIconSet).call(_context5, this.theme)
