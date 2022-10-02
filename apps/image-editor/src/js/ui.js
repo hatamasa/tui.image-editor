@@ -72,6 +72,7 @@ class Ui {
     this._initMenuEvent = false;
 
     this._makeSubMenu();
+    this._addHelpMenus();
 
     this._attachHistoryEvent();
   }
@@ -310,8 +311,6 @@ class Ui {
       download: this._selectedElement.querySelectorAll('.tui-image-editor-download-btn'),
       load: this._selectedElement.querySelectorAll('.tui-image-editor-load-btn'),
     };
-
-    this._addHelpMenus();
 
     this._historyMenu = new History({
       locale: this._locale,
