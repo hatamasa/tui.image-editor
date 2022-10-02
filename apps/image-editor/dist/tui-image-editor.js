@@ -43451,6 +43451,8 @@ var Range = /*#__PURE__*/function () {
 
     this._addClickEvent();
 
+    this._addTouchEvent();
+
     this._addDragEvent();
 
     this._addInputEvent();
@@ -43469,6 +43471,8 @@ var Range = /*#__PURE__*/function () {
       var _this = this;
 
       this._removeClickEvent();
+
+      this._removeTouchEvent();
 
       this._removeDragEvent();
 
@@ -43734,6 +43738,26 @@ var Range = /*#__PURE__*/function () {
       this.rangeElement.removeEventListener('click', this.eventHandler.changeSlideFinally);
     }
     /**
+     * Add Range touch event
+     * @private
+     */
+
+  }, {
+    key: "_addTouchEvent",
+    value: function _addTouchEvent() {
+      this.rangeElement.addEventListener('touchend', this.eventHandler.changeSlideFinally);
+    }
+    /**
+     * Remove Range touch event
+     * @private
+     */
+
+  }, {
+    key: "_removeTouchEvent",
+    value: function _removeTouchEvent() {
+      this.rangeElement.removeEventListener('touchend', this.eventHandler.changeSlideFinally);
+    }
+    /**
      * Add Range drag event
      * @private
      */
@@ -43742,6 +43766,7 @@ var Range = /*#__PURE__*/function () {
     key: "_addDragEvent",
     value: function _addDragEvent() {
       this.pointer.addEventListener('mousedown', this.eventHandler.startChangingSlide);
+      this.pointer.addEventListener('touchstart', this.eventHandler.startChangingSlide);
     }
     /**
      * Remove Range drag event
@@ -43752,6 +43777,7 @@ var Range = /*#__PURE__*/function () {
     key: "_removeDragEvent",
     value: function _removeDragEvent() {
       this.pointer.removeEventListener('mousedown', this.eventHandler.startChangingSlide);
+      this.pointer.removeEventListener('touchstart', this.eventHandler.startChangingSlide);
     }
     /**
      * change angle event
@@ -43762,7 +43788,7 @@ var Range = /*#__PURE__*/function () {
   }, {
     key: "_changeSlide",
     value: function _changeSlide(event) {
-      var changePosition = event.screenX;
+      var changePosition = event.screenX || event.touches[0].screenX;
       var diffPosition = changePosition - this.firstPosition;
       var touchPx = this.firstLeft + diffPosition;
       touchPx = touchPx > this.rangeWidth ? this.rangeWidth : touchPx;
@@ -43791,7 +43817,13 @@ var Range = /*#__PURE__*/function () {
         return;
       }
 
-      var touchPx = event.offsetX;
+      var touchPx = function () {
+        if (event.offsetX) return event.offsetX;
+        var rect = event.target.getBoundingClientRect();
+        var offsetX = event.touches[0].clientX - window.pageXOffset - rect.left;
+        return offsetX;
+      }();
+
       var ratio = touchPx / this.rangeWidth;
       var value = this._absMax * ratio + this._min;
       this.pointer.style.left = "".concat(ratio * this.rangeWidth, "px");
@@ -43802,10 +43834,12 @@ var Range = /*#__PURE__*/function () {
   }, {
     key: "_startChangingSlide",
     value: function _startChangingSlide(event) {
-      this.firstPosition = event.screenX;
+      this.firstPosition = event.screenX || event.touches[0].screenX;
       this.firstLeft = toInteger(this.pointer.style.left) || 0;
       document.addEventListener('mousemove', this.eventHandler.changeSlide);
+      document.addEventListener('touchmove', this.eventHandler.changeSlide);
       document.addEventListener('mouseup', this.eventHandler.stopChangingSlide);
+      document.addEventListener('touchend', this.eventHandler.stopChangingSlide);
     }
     /**
      * stop change angle event
@@ -43817,7 +43851,9 @@ var Range = /*#__PURE__*/function () {
     value: function _stopChangingSlide() {
       this.fire('change', this._value, true);
       document.removeEventListener('mousemove', this.eventHandler.changeSlide);
+      document.removeEventListener('touchmove', this.eventHandler.changeSlide);
       document.removeEventListener('mouseup', this.eventHandler.stopChangingSlide);
+      document.removeEventListener('touchend', this.eventHandler.stopChangingSlide);
     }
     /**
      * Unnecessary string filtering.
