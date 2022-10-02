@@ -51,6 +51,7 @@ class Range {
     };
 
     this._addClickEvent();
+    this._addTouchEvent();
     this._addDragEvent();
     this._addInputEvent();
     this.value = options.value;
@@ -62,6 +63,7 @@ class Range {
    */
   destroy() {
     this._removeClickEvent();
+    this._removeTouchEvent();
     this._removeDragEvent();
     this._removeInputEvent();
     this.rangeElement.innerHTML = '';
@@ -297,11 +299,28 @@ class Range {
   }
 
   /**
+   * Add Range touch event
+   * @private
+   */
+  _addTouchEvent() {
+    this.rangeElement.addEventListener('touchend', this.eventHandler.changeSlideFinally);
+  }
+
+  /**
+   * Remove Range touch event
+   * @private
+   */
+  _removeTouchEvent() {
+    this.rangeElement.removeEventListener('touchend', this.eventHandler.changeSlideFinally);
+  }
+
+  /**
    * Add Range drag event
    * @private
    */
   _addDragEvent() {
     this.pointer.addEventListener('mousedown', this.eventHandler.startChangingSlide);
+    this.pointer.addEventListener('touchstart', this.eventHandler.startChangingSlide);
   }
 
   /**
@@ -310,6 +329,7 @@ class Range {
    */
   _removeDragEvent() {
     this.pointer.removeEventListener('mousedown', this.eventHandler.startChangingSlide);
+    this.pointer.removeEventListener('touchstart', this.eventHandler.startChangingSlide);
   }
 
   /**
@@ -318,7 +338,7 @@ class Range {
    * @private
    */
   _changeSlide(event) {
-    const changePosition = event.screenX;
+    const changePosition = event.screenX || event.touches[0].screenX;
     const diffPosition = changePosition - this.firstPosition;
     let touchPx = this.firstLeft + diffPosition;
     touchPx = touchPx > this.rangeWidth ? this.rangeWidth : touchPx;
@@ -345,7 +365,12 @@ class Range {
     if (event.target.className !== 'tui-image-editor-range') {
       return;
     }
-    const touchPx = event.offsetX;
+    const touchPx = (() => {
+      if (event.offsetX) return event.offsetX;
+      const rect = event.target.getBoundingClientRect()
+      const offsetX = (event.touches[0].clientX - window.pageXOffset - rect.left) 
+      return offsetX;
+    })();
     const ratio = touchPx / this.rangeWidth;
     const value = this._absMax * ratio + this._min;
     this.pointer.style.left = `${ratio * this.rangeWidth}px`;
@@ -356,11 +381,13 @@ class Range {
   }
 
   _startChangingSlide(event) {
-    this.firstPosition = event.screenX;
+    this.firstPosition = event.screenX || event.touches[0].screenX;
     this.firstLeft = toInteger(this.pointer.style.left) || 0;
 
     document.addEventListener('mousemove', this.eventHandler.changeSlide);
+    document.addEventListener('touchmove', this.eventHandler.changeSlide);
     document.addEventListener('mouseup', this.eventHandler.stopChangingSlide);
+    document.addEventListener('touchend', this.eventHandler.stopChangingSlide);
   }
 
   /**
@@ -371,7 +398,9 @@ class Range {
     this.fire('change', this._value, true);
 
     document.removeEventListener('mousemove', this.eventHandler.changeSlide);
+    document.removeEventListener('touchmove', this.eventHandler.changeSlide);
     document.removeEventListener('mouseup', this.eventHandler.stopChangingSlide);
+    document.removeEventListener('touchend', this.eventHandler.stopChangingSlide);
   }
 
   /**
