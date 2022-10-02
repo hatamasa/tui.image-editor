@@ -367,8 +367,8 @@ class Range {
     }
     const touchPx = (() => {
       if (event.offsetX) return event.offsetX;
-      const rect = event.target.getBoundingClientRect()
-      const offsetX = (event.touches[0].clientX - window.pageXOffset - rect.left) 
+      const rect = event.target.getBoundingClientRect();
+      const offsetX = event.touches[0].clientX - window.pageXOffset - rect.left;
       return offsetX;
     })();
     const ratio = touchPx / this.rangeWidth;
