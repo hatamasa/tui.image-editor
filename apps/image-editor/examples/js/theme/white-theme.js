@@ -40,7 +40,7 @@ var whiteTheme = {
   'submenu.iconSize.height': '32px',
 
   // submenu primary color
-  'submenu.backgroundColor': 'transparent',
+  'submenu.backgroundColor': '#d3d3d3',
   'submenu.partition.color': '#e5e5e5',
 
   // submenu labels
